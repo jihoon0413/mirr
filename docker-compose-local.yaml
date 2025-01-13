@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  mirr-record-database:
+    container_name: mirr-database
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: jihoon0413/mirr-database
+    environment:
+      - MARIADB_DATABASE=mirr
+      - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./database/config:/etc/mysql/conf.d
+#      - ./database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
