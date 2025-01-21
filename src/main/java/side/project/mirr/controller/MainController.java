@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import side.project.mirr.service.GameService;
 import side.project.mirr.service.PlayerService;
 
 @Slf4j
@@ -13,11 +13,16 @@ import side.project.mirr.service.PlayerService;
 public class MainController {
 
     private final PlayerService playerService;
+    private final GameService gameService;
 
     @GetMapping("/")
     public String home() {
-        playerService.savePlayer();
-        return "index";
+
+        return "page/index";
     }
 
+    @GetMapping("/score")
+    public String score() {
+        return "page/score";
+    }
 }

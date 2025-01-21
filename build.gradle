@@ -41,6 +41,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// ajax 사용을 위한 jquery추가
+	implementation 'org.webjars:jquery:3.7.1'
+	implementation 'org.webjars:bootstrap:5.3.2'
 }
 
 tasks.named('test') {
