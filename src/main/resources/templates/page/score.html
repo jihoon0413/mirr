@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+      layout:fragment="content">
+
+    <head>
+        <meta charset='utf-8' />
+    </head>
+    <body>
+    <div class="container pt-4">
+        <button id="listBtn">게임리스트</button>
+        <br><br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>NO</th>
+                <th>NAME</th>
+                <th>MATCHDAY</th>
+            </tr>
+            </thead>
+            <tbody th:fragment="gameTableFragment" id="gameTbody">
+            <tr th:each="game:${gameList}">
+                <td th:text="${game.id}"></td>
+                <td th:text="${game.opponent}"></td>
+                <td th:text="${game.matchDay}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $("#listBtn").click(function(){
+                $.ajax({
+                    type:"get",
+                    url:"game/findMatchByMonth",
+                    success:function(gameList){
+                        $("#gameTbody").replaceWith(gameList);
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+</html>
