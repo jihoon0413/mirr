@@ -7,18 +7,86 @@
     <head>
         <meta charset='utf-8' />
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-        <script>
+    </head>
+    <body>
+        <div th:fragment="gameTableFragment" id='calendar'></div>
+        <div th:replace="~{fragments/modal :: eventModal}"></div>
+        <script th:inline="javascript">
+
             document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth'
+                $(function () {
+                    var request = $.ajax({
+                        type:"get",
+                        url:"game/findGame"
+                    });
+
+                    request.done(function(data) {
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            timeZone: 'UTC',
+                            navLinks:true,
+                            initialView: 'dayGridMonth',
+                            dateClick: function(info) {
+                                document.getElementById('eventDate').value = info.dateStr;
+                                var myModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                                myModal.show();
+                            },
+                            displayEventTime:true,
+                            allDaySlot:false,
+                            headerToolbar: {
+                                start: 'dayGridMonth,timeGridWeek,dayGridDay',
+                                center: 'title',
+                                end: 'today prev,next'
+                            }
+                            ,selectable : true,
+                        });
+                        console.log('받은 데이터:', data);
+
+                        data.forEach(function(game) {
+                            calendar.addEvent({
+                                title: game.opponent,
+                                start: game.matchDay,
+                                url: `/game/detail/${game.id}`,
+                                allDay: true
+                            });
+                        });
+                        calendar.render();
+                    });
                 });
-                calendar.render();
             });
 
         </script>
-    </head>
-    <body>
-        <div id='calendar'></div>
+        <style>
+            #calendar{
+                width: 80%;
+                padding-left: 20%;
+
+            }
+
+
+
+            .fc-col-header-cell-cushion, .fc-daygrid-day-number {
+                text-decoration: none;
+            }
+
+            .fc-scrollgrid-sync-inner > .fc-col-header-cell-cushion,
+            .fc-day-mon .fc-daygrid-day-number,
+            .fc-day-tue .fc-daygrid-day-number,
+            .fc-day-wed .fc-daygrid-day-number,
+            .fc-day-thu .fc-daygrid-day-number,
+            .fc-day-fri .fc-daygrid-day-number {
+                color: black;
+            }
+
+            .fc-day-sun .fc-col-header-cell-cushion,
+            .fc-day-sun a{
+                color : red;
+            }
+
+            .fc-day-sat .fc-col-header-cell-cushion,
+            .fc-day-sat a {
+                color : blue;
+            }
+        </style>
     </body>
 </html>
