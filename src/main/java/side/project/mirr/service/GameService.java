@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Game;
 import side.project.mirr.dto.GameDto;
+import side.project.mirr.dto.QuarterDto;
 import side.project.mirr.repository.GameRepository;
+import side.project.mirr.repository.QuarterRepository;
 
 import java.util.List;
 
@@ -15,6 +17,11 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final QuarterRepository quarterRepository;
+
+    public GameDto findGame() {
+        return GameDto.from(gameRepository.findById(1L).orElseThrow());
+    }
 
     public List<GameDto> findMatchByMonth() {
         return gameRepository.findAll()
@@ -22,4 +29,14 @@ public class GameService {
                 .toList();
     }
 
+    public void saveGame(GameDto gameDto) {
+        Game game = Game.of(gameDto.stadium(), gameDto.matchDay());
+        gameRepository.save(game);
+    }
+
+    public List<QuarterDto> findQuarter(Long gameId) {
+        return quarterRepository.findAllByGameId(gameId)
+                .stream().map(QuarterDto::from)
+                .toList();
+    }
 }

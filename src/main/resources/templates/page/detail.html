@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+      layout:fragment="content">
+
+    <head>
+        <meta charset='utf-8' />
+    </head>
+    <body>
+    <div class="container pt-4">
+        <button id="listBtn">상세 기록 보기</button>
+        <br><br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Quarter</th>
+                <th>Opponent</th>
+                <th>Point</th>
+                <th>LostPoint</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="game:${gameDetailList}">
+                <td th:text="${game.quarterNum}"></td>
+                <td th:text="${game.opponent}"></td>
+                <td th:text="${game.point}"></td>
+                <td th:text="${game.losePoint}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+    </script>
+    </body>
+</html>
