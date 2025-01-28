@@ -25,7 +25,7 @@ public class Game {
 
     private LocalDateTime matchDay;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game" , cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Quarter> quarters = new HashSet<>();
 
 

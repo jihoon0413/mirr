@@ -2,9 +2,14 @@ package side.project.mirr.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class Quarter {
 
     @Id
@@ -20,5 +25,7 @@ public class Quarter {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @OneToMany(mappedBy = "quarter", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Point> points = new HashSet<>();
 
 }

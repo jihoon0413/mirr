@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import side.project.mirr.domain.eNum.Position;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Builder
@@ -24,6 +27,9 @@ public class Player {
     private Position pos;
 
     private int backNum;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Point> points = new HashSet<>();
 
 
     private Player(String name, Position pos, int backNum) {
