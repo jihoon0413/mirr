@@ -78,3 +78,51 @@ insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '샤크스', 4, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 5, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 6, 5, 0);
+
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 11);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 50);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 2, 36);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 3, 11);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 3, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 3, 40);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 5, 11);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 5, 50);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 5, 35);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 5, 30);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 5, 30);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 5, 35);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 6, 45);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-06', 6, 27);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 7, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-06', 7, 45);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 8, 15);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 8, 15);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-06', 8, 30);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 8, 15);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-06', 8, 45);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 8, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 9, 30);
+--insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 9, 임?건우);
+--insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 9, 임?건우);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-06', 9, 27);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 11, 44);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 12, 36);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 12, 2);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-12', 12, 2);
+--insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 12, 승찬);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 13, 44);
+--insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 13, 박지훈);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 14, 18);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 46);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 44);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 40);
+insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-12', 15, 40);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 2);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 34);
+insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 34);
+--insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 15, 최유승);
+
+
+
