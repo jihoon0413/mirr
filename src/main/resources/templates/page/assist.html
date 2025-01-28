@@ -9,7 +9,7 @@
     </head>
     <body>
     <div class="container pt-4">
-        <button id="listBtn">득점 랭킹</button>
+        <button id="listBtn">어시스트 랭킹</button>
         <br><br>
         <table class="table table-bordered">
             <thead>
@@ -38,7 +38,7 @@
             $(function () {
                 $.ajax({
                     type:"get",
-                    url:"point/getGoalRanking",
+                    url:"point/getAssistRanking",
                     success:function(rankList){
                         console.log('받은 데이터:', rankList);
                         $("#gameTbody").replaceWith(rankList);
