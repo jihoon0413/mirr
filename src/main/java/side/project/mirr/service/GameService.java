@@ -39,4 +39,9 @@ public class GameService {
                 .stream().map(QuarterDto::from)
                 .toList();
     }
+
+    public void deleteGame(Long gameId) {
+        Long id = gameId;
+        gameRepository.deleteById(id);
+    }
 }

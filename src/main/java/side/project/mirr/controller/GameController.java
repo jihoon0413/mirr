@@ -2,6 +2,7 @@ package side.project.mirr.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,13 @@ import java.util.List;
 public class GameController {
     private final GameService gameService;
 
+    @PostMapping("/newGame")
+    public String saveGame(GameRequest gameDto) {
+
+        gameService.saveGame(GameDto.of(gameDto.stadium(), gameDto.matchDay()));
+        return "redirect:/";
+    }
+
     @GetMapping("/findGame")
     @ResponseBody
     public List<GameDto> findOne(Model model) {
@@ -33,18 +41,18 @@ public class GameController {
         return "page/score :: gameTableFragment";
     }
 
-    @PostMapping("/newGame")
-    public String saveGame(GameRequest gameDto) {
-        log.info("통신 성공");
 
-        gameService.saveGame(GameDto.of(gameDto.stadium(), gameDto.matchDay()));
-        return "redirect:/";
+    @PostMapping("delete/{gameId}")
+    public ResponseEntity<String> deleteGame(@PathVariable("gameId") Long gameId) {
+        gameService.deleteGame(gameId);
+        return ResponseEntity.ok("/");
     }
 
     @GetMapping("/detail/{gameId}")
     public String detail(@PathVariable("gameId") Long gameId,
                          Model model) {
         List<QuarterDto> quarterDtos = gameService.findQuarter(gameId);
+        model.addAttribute("gameId", gameId);
         model.addAttribute("gameDetailList", quarterDtos);
         return "page/detail";
     }

@@ -27,4 +27,9 @@ public class MainController {
     public String score() {
         return "page/score";
     }
+
+    @GetMapping("/assist")
+    public String assist() {
+        return "page/assist";
+    }
 }
