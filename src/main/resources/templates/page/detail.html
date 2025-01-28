@@ -9,7 +9,7 @@
     </head>
     <body>
     <div class="container pt-4">
-        <button id="listBtn">상세 기록 보기</button>
+        <button>상세 기록 보기</button>
         <br><br>
         <table class="table table-bordered">
             <thead>
@@ -29,9 +29,40 @@
             </tr>
             </tbody>
         </table>
-    </div>
 
+        <div class="buttons">
+            <button type="submit" class="btn btn-primary" id="btn_update">수정</button>
+            <button type="submit" class="btn btn-danger" th:value="${gameId}" id="btn_delete">게임 삭제</button>
+        </div>
+
+    </div>
     <script type="text/javascript">
+        $(function(){
+            $("#btn_delete").click(function(){
+                if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+                    return false;
+                }
+                var gameId = document.getElementById('btn_delete').value;
+                console.log('게임 아이디 :', gameId);
+                $.ajax({
+                    type:"post",
+                    url:'/game/delete/' + gameId,
+                    success: function(response) {
+                        window.location.href = response;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+            });
+        });
     </script>
+
+    <style>
+        .buttons {
+            text-align: right;
+        }
+    </style>
+
     </body>
 </html>
