@@ -34,14 +34,9 @@ public class GameService {
         gameRepository.save(game);
     }
 
-    public List<QuarterDto> findQuarter(Long gameId) {
-        return quarterRepository.findAllByGameId(gameId)
-                .stream().map(QuarterDto::from)
-                .toList();
-    }
+
 
     public void deleteGame(Long gameId) {
-        Long id = gameId;
-        gameRepository.deleteById(id);
+        gameRepository.deleteById(gameId);
     }
 }

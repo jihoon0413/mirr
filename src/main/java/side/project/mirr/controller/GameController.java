@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import side.project.mirr.dto.GameDto;
-import side.project.mirr.dto.QuarterDto;
 import side.project.mirr.dto.request.GameRequest;
 import side.project.mirr.service.GameService;
 
@@ -46,15 +45,6 @@ public class GameController {
     public ResponseEntity<String> deleteGame(@PathVariable("gameId") Long gameId) {
         gameService.deleteGame(gameId);
         return ResponseEntity.ok("/");
-    }
-
-    @GetMapping("/detail/{gameId}")
-    public String detail(@PathVariable("gameId") Long gameId,
-                         Model model) {
-        List<QuarterDto> quarterDtos = gameService.findQuarter(gameId);
-        model.addAttribute("gameId", gameId);
-        model.addAttribute("gameDetailList", quarterDtos);
-        return "page/detail";
     }
 
 }
