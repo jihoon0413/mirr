@@ -28,6 +28,11 @@ public class Game {
     @OneToMany(mappedBy = "game" , cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Quarter> quarters = new HashSet<>();
 
+    @OneToMany(mappedBy = "game" , cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Mom> moms = new HashSet<>();
+
+    @OneToMany(mappedBy = "game" , cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Attend> attends = new HashSet<>();
 
     private Game(String stadium, LocalDateTime matchDay) {
         this.stadium = stadium;

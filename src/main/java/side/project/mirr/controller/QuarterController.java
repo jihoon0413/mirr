@@ -5,8 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import side.project.mirr.domain.eNum.PointType;
+import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.QuarterDto;
+import side.project.mirr.dto.request.MomRequest;
+import side.project.mirr.dto.request.PointRequest;
 import side.project.mirr.dto.request.QuarterRequest;
+import side.project.mirr.service.MomService;
 import side.project.mirr.service.QuarterService;
 
 import java.util.List;
@@ -18,16 +23,20 @@ import java.util.List;
 public class QuarterController {
 
     private final QuarterService quarterService;
+    private final MomService momService;
 
     @GetMapping("/detail/{gameId}")
     public String detail(@PathVariable("gameId") Long gameId,
                          Model model) {
         List<QuarterDto> quarterDtos = quarterService.findQuarter(gameId);
+        List<PlayerDto> moms = momService.findMomsByGameId(gameId);
         model.addAttribute("quarterDTO", new QuarterDto(0L,0,null,0,0));
         model.addAttribute("gameId", gameId);
         model.addAttribute("quarterRequest", new QuarterRequest(0L, 0, "", 0, 0));
         model.addAttribute("gameDetailList", quarterDtos);
-        return "page/detail";
+        model.addAttribute("moms", moms);
+        model.addAttribute("momRequest", new MomRequest(0L, null));
+        return "page/quarter";
     }
 
     @PostMapping("/newQuarter")

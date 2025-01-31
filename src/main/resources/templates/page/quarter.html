@@ -6,10 +6,15 @@
 
     <head>
         <meta charset='utf-8' />
+        <!-- select2 -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ko.js"></script>
     </head>
     <body>
     <div th:replace="~{fragments/modifyQuarterModal :: modifyQuarterModal}"></div>
     <div th:replace="~{fragments/newQuarterModal :: newQuarterModal}"></div>
+    <div th:replace="~{fragments/modifyMomModal :: modifyMomModal}"></div>
     <div class="container pt-4">
         <button>상세 기록 보기</button>
         <br><br>
@@ -43,16 +48,24 @@
             <button type="submit" class="btn btn-success" th:value="${gameId}" id="btn_newQuarter">쿼터 추가</button>
             <button type="submit" class="btn btn-danger" th:value="${gameId}" id="btn_delete">게임 삭제</button>
         </div>
-
+        <br><br>
+        <b>M.O.M : </b>
+        <label th:each="mom : ${moms}">
+            <b>*</b>
+            <label th:text="${mom.name}"></label>
+            <label type="hidden">  </label>
+        </label>
+        <button type="submit" class="btn btn-success" th:value="${gameId}" id="btn_modifyMom">수정</button>
+        <br><br>
     </div>
-    <script type="text/javascript">
+    <script th:inline="javascript">
+
 
         // 쿼터 추가
         $(function(){
             $("#btn_newQuarter").click(function(){
 
                 var gameId = document.getElementById('btn_newQuarter').value;
-                console.log('게임 아이디 :', gameId);
 
 
                 document.getElementById('gameId').value = gameId;
@@ -139,6 +152,54 @@
                 });
             });
         });
+
+
+        //mom 수정
+        $(function(){
+            $("#btn_modifyMom").click(function(){
+
+                var gameId = document.getElementById('btn_modifyMom').value;
+                var momsData = /*[[${moms}]]*/ [];
+
+                $.ajax({
+                    type:"get",
+                    url:'/player/findAll',
+                    success: function(data) {
+
+                        document.getElementById('momGameId').value = gameId;
+                        console.log('게임 아이디 :', gameId);
+
+                        var select = document.getElementById('playerId');
+
+                        select.innerHTML = '';
+
+                        data.forEach(function(player) {
+                            var option = document.createElement('option');
+                            option.value = player.id;  // 플레이어 ID
+                            option.textContent = player.name;  // 플레이어 이름
+                            select.appendChild(option);
+                        });
+
+                        var selectedValues = momsData.map(function(mom) {
+                            return mom.id;
+                        });
+
+                        $('#playerId').val(selectedValues).trigger('change');
+
+                        var myModal = new bootstrap.Modal(document.getElementById('modifyMomModal'));
+                        myModal.show();
+                    }
+                });
+            });
+        });
+
+        //select2 검색기능
+        $(document).ready(function(){
+            $('#playerId').select2({
+                dropdownParent: $('#modifyMomModal')
+            });
+        });
+
     </script>
 
     <style>
