@@ -26,10 +26,4 @@ public class PlayerController {
         return playerService.findAll();
     }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public List<PlayerDto> searchPlayers(@RequestParam String q) {
-        return playerService.searchPlayers(q);
-    }
-
 }
