@@ -124,5 +124,9 @@ insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 34);
 --insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 15, 최유승);
 
-
+insert into mom (game_id, player_id) values (1, 11);
+insert into mom (game_id, player_id) values (2, 15);
+insert into mom (game_id, player_id) values (2, 19);
+insert into mom (game_id, player_id) values (3, 44);
+--insert into mom (game_id, player_id) values (3, 임영훈);
 
