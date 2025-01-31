@@ -35,12 +35,4 @@ public class PlayerService {
                 .toList();
     }
 
-    public List<PlayerDto> searchPlayers(String query) {
-        String lowercaseQuery = query.toLowerCase();
-
-        return playerRepository.findAll().stream()
-                .filter(player -> player.getName().toLowerCase().contains(lowercaseQuery))
-                .map(PlayerDto::from)
-                .collect(Collectors.toList());
-    }
 }

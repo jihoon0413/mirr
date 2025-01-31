@@ -34,6 +34,7 @@ public class PointService {
                     var count = pointRepository.countByPlayerIdAndType(player.getId(), PointType.GOAL);
                     return RankingResponse.from(PlayerDto.from(player), count);
                 })
+                .filter(response -> response.count() > 0)
                 .sorted(Comparator.comparing(RankingResponse::count).reversed())
                 .toList();
     }
@@ -44,6 +45,7 @@ public class PointService {
                     var count = pointRepository.countByPlayerIdAndType(player.getId(), PointType.ASSIST);
                     return RankingResponse.from(PlayerDto.from(player), count);
                 })
+                .filter(response -> response.count() > 0)
                 .sorted(Comparator.comparing(RankingResponse::count).reversed())
                 .toList();
     }
