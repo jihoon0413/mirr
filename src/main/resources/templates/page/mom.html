@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+      layout:fragment="content">
+
+    <head>
+        <meta charset='utf-8' />
+    </head>
+    <body>
+    <div class="container pt-4">
+        <button id="listBtn">득점 랭킹</button>
+        <br><br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>RANK</th>
+                <th>NAME</th>
+                <th>BACKNUM</th>
+                <th>POSITION</th>
+                <th>COUNT</th>
+            </tr>
+            </thead>
+            <tbody th:fragment="gameTableFragment" id="gameTbody">
+            <tr th:each="goal, iterStat : ${rankList}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${goal.playerDto.name}"></td>
+                <td th:text="${goal.playerDto.backNum}"></td>
+                <td th:text="${goal.playerDto.pos}"></td>
+                <td th:text="${goal.count}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+
+        document.addEventListener('DOMContentLoaded', function() {
+            $(function () {
+                $.ajax({
+                    type:"get",
+                    url:"mom/getMomRanking",
+                    success:function(rankList){
+                        console.log('받은 데이터:', rankList);
+                        $("#gameTbody").replaceWith(rankList);
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+</html>

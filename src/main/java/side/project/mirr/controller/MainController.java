@@ -32,4 +32,9 @@ public class MainController {
     public String assist() {
         return "page/assist";
     }
+
+    @GetMapping("/mom")
+    public String mom() {
+        return "page/mom";
+    }
 }

@@ -9,10 +9,12 @@ import side.project.mirr.domain.Mom;
 import side.project.mirr.domain.Player;
 import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.request.MomRequest;
+import side.project.mirr.dto.response.RankingResponse;
 import side.project.mirr.repository.GameRepository;
 import side.project.mirr.repository.MomRepository;
 import side.project.mirr.repository.PlayerRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -52,5 +54,16 @@ public class MomService {
             }
         }
 
+    }
+
+    public List<RankingResponse> getMomRanking() {
+        return playerRepository.findAll()
+                .stream().map(player -> {
+                    var count = momRepository.countByPlayerId(player.getId());
+                    return RankingResponse.from(PlayerDto.from(player), count);
+                })
+                .filter(response -> response.count() > 0)
+                .sorted(Comparator.comparing(RankingResponse::count).reversed())
+                .toList();
     }
 }
