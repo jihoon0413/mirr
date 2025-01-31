@@ -8,8 +8,8 @@
         <meta charset='utf-8' />
     </head>
     <body>
-    <div th:replace="~{fragments/detailModal :: detailModal}"></div>
-    <div th:replace="~{fragments/recordNewModal :: recordNewModal}"></div>
+    <div th:replace="~{fragments/modifyQuarterModal :: modifyQuarterModal}"></div>
+    <div th:replace="~{fragments/newQuarterModal :: newQuarterModal}"></div>
     <div class="container pt-4">
         <button>상세 기록 보기</button>
         <br><br>
@@ -20,6 +20,8 @@
                 <th>Opponent</th>
                 <th>Point</th>
                 <th>LostPoint</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +30,10 @@
                 <td th:text="${quarter.opponent}"></td>
                 <td th:text="${quarter.point}"></td>
                 <td th:text="${quarter.losePoint}"></td>
-                <td><button type="submit" class="btn btn-primary" th:value="${quarter.id}" th:id="btn_quarter_update">수정</button></td>
+                <td>
+                    <button type="submit" class="btn btn-primary" th:value="${quarter.id}" th:id="btn_quarter_update">수정</button>
+                    <a th:href="@{/point/detail/{id}(id=${quarter.id})}" class="btn btn-info">득점자 기록</a>
+                </td>
                 <td><button type="submit" class="btn btn-warning" th:value="${quarter.id}" th:id="btn_quarter_delete">삭제</button></td>
             </tr>
             </tbody>
@@ -52,7 +57,7 @@
 
                 document.getElementById('gameId').value = gameId;
 
-                var myModal = new bootstrap.Modal(document.getElementById('recordNewModal'));
+                var myModal = new bootstrap.Modal(document.getElementById('newQuarterModal'));
                 myModal.show();
 
             });
@@ -100,7 +105,7 @@
                             document.getElementById('point').value = response.point;
                             document.getElementById('losePoint').value = response.losePoint;
 
-                            var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+                            var myModal = new bootstrap.Modal(document.getElementById('modifyQuarterModal'));
                             myModal.show();
                         },
                         error: function(xhr, status, error) {
@@ -134,7 +139,6 @@
                 });
             });
         });
-
     </script>
 
     <style>

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div th:fragment="gameTableFragment" id='calendar'></div>
-        <div th:replace="~{fragments/modal :: eventModal}"></div>
+        <div th:replace="~{fragments/newGameModal :: newGameModal}"></div>
         <script th:inline="javascript">
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -27,8 +27,8 @@
                             navLinks:true,
                             initialView: 'dayGridMonth',
                             dateClick: function(info) {
-                                document.getElementById('eventDate').value = info.dateStr;
-                                var myModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                                document.getElementById('newGameModal').value = info.dateStr;
+                                var myModal = new bootstrap.Modal(document.getElementById('newGameModal'));
                                 myModal.show();
                             },
                             displayEventTime:true,

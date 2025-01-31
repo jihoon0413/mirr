@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+      layout:fragment="content">
+
+    <head>
+        <meta charset='utf-8' />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <!-- 필수 추가 -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ko.js"></script>
+    </head>
+    <body>
+    <div th:replace="~{fragments/newPointModal :: newPointModal}"></div>
+<!--    <div th:replace="~{fragments/recordNewModal :: recordNewModal}"></div>-->
+    <div class="container pt-4">
+        <button>상세 기록 보기</button>
+        <br><br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="point:${pointDetailList}">
+                <td th:text="${point.playerDto.name}"></td>
+                <td th:text="${point.type}"></td>
+                <td><button type="submit" class="btn btn-warning" th:value="${point.id}" th:id="btn_point_delete">삭제</button></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons">
+            <button type="submit" class="btn btn-success" th:value="${quarterId}" id="btn_newGoal">골 추가</button>
+            <button type="submit" class="btn btn-success" th:value="${quarterId}" id="btn_newAssist">어시스트 추가</button>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+
+        // 골 추가
+        $(function(){
+            $("#btn_newGoal").click(function(){
+
+                var quarterId = document.getElementById('btn_newGoal').value;
+                console.log('쿼터 아이디 :', quarterId);
+
+                $.ajax({
+                    type:"get",
+                    url:'/player/findAll',
+                    success: function(data) {
+
+                        var select = document.getElementById('playerId');
+
+                        select.innerHTML = '';
+
+                        data.forEach(function(player) {
+                            var option = document.createElement('option');
+                            option.value = player.id;  // 플레이어 ID
+                            option.textContent = player.name;  // 플레이어 이름
+                            select.appendChild(option);
+                        });
+
+                        document.getElementById('quarterId').value = quarterId;
+                        document.getElementById('pointType').value = 'GOAL';
+                        var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));
+                        myModal.show();
+                    }
+                });
+
+            });
+        });
+
+
+        // 어시스트 추가
+        $(function(){
+            $("#btn_newAssist").click(function(){
+
+                var quarterId = document.getElementById('btn_newAssist').value;
+
+                $.ajax({
+                    type:"get",
+                    url:'/player/findAll',
+                    success: function(data) {
+
+                        var select = document.getElementById('playerId');
+
+                        select.innerHTML = '';
+
+                        data.forEach(function(player) {
+                            var option = document.createElement('option');
+                            option.value = player.id;  // 플레이어 ID
+                            option.textContent = player.name;  // 플레이어 이름
+                            select.appendChild(option);
+                        });
+
+                        document.getElementById('quarterId').value = quarterId;
+                        document.getElementById('pointType').value = 'ASSIST';
+                        var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));
+                        myModal.show();
+                    }
+                });
+
+            });
+        });
+
+
+        //포인트 삭제
+        $(function(){
+            $(document).on('click', '.btn-warning', function(){
+                if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+                    return false;
+                }
+                var pointId = $(this).val();
+                console.log('쿼터 수정 게임 아이디:', pointId);
+                $.ajax({
+                    type:"post",
+                    url:'/point/delete/' + pointId,
+                    success: function() {
+                        location.reload();
+                    }
+                });
+            });
+        });
+
+        //select2 검색기능
+        $(document).ready(function(){
+            $('#playerId').select2({
+                dropdownParent: $('#newPointModal')
+            });
+        });
+
+    </script>
+
+    <style>
+        .buttons {
+            text-align: right;
+        }
+    </style>
+
+    </body>
+</html>

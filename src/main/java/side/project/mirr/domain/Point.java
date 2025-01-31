@@ -29,4 +29,15 @@ public class Point {
     @JoinColumn(name = "player_id")
     private Player player;
 
+    private Point(Quarter quarter, Player player, PointType type, LocalDateTime dateInfo) {
+        this.quarter = quarter;
+        this.player = player;
+        this.type = type;
+        this.dateInfo = dateInfo;
+    }
+
+    public static Point of(Quarter quarter, Player player, PointType type, LocalDateTime dateInfo) {
+        return new Point(quarter, player, type, dateInfo);
+    }
+
 }

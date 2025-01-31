@@ -31,10 +31,10 @@ public class QuarterController {
     }
 
     @PostMapping("/newQuarter")
-    public String newQuarter(QuarterRequest quarterDto) {
+    public String newQuarter(QuarterRequest quarterRequest) {
 
-        quarterService.saveQuarter(quarterDto);
-        return "redirect:/quarter/detail/" + quarterDto.gameId();
+        quarterService.saveQuarter(quarterRequest);
+        return "redirect:/quarter/detail/" + quarterRequest.gameId();
     }
 
     @GetMapping("/findById/{quarterId}")

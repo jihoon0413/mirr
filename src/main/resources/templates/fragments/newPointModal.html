@@ -7,23 +7,29 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-<div th:fragment="eventModal">
-    <div class="modal" id="eventModal">
+<div th:fragment="newPointModal">
+    <div class="modal" id="newPointModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">일정 추가</h5>
+                    <h5 class="modal-title">포인트 정보</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/game/newGame}" th:object="${gameDTO}" method="post">
+                    <form th:action="@{/point/newPoint}" th:object="${pointRequest}" method="post">
                         <div class="mb-3">
-                            <label for="eventDate" class="form-label">날짜</label>
-                            <input type="text" class="form-control" id="eventDate" th:field="*{matchDay}" readonly>
+                            <input type="hidden" class="form-control" id="quarterId" th:field="*{quarterId}" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="eventTitle" class="form-label">상대팀</label>
-                            <input type="text" class="form-control" id="eventTitle" th:field="*{stadium}" required>
+                            <label for="playerId" class="form-label">플레이어</label>
+                            <br>
+                            <select class="form-control select2" id="playerId" th:field="*{playerId}" style="width: 100%;" required>
+                                <option value="0">테스트</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pointType" class="form-label">포인트 타입</label>
+                            <input type="text" class="form-control" id="pointType" th:field="*{type}" readonly>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">저장</button>

@@ -10,6 +10,7 @@ import side.project.mirr.dto.request.QuarterRequest;
 import side.project.mirr.repository.GameRepository;
 import side.project.mirr.repository.QuarterRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +28,7 @@ public class QuarterService {
     public List<QuarterDto> findQuarter(Long gameId) {
         return quarterRepository.findAllByGameId(gameId)
                 .stream().map(QuarterDto::from)
+                .sorted(Comparator.comparing(QuarterDto :: quarterNum))
                 .toList();
     }
 
@@ -47,11 +49,11 @@ public class QuarterService {
         return quarter.getGame().getId();
     }
 
-    public void saveQuarter(QuarterRequest quarterDto) {
+    public void saveQuarter(QuarterRequest quarterRequest) {
 
-        Game game = gameRepository.findById(quarterDto.gameId()).orElseThrow();
+        Game game = gameRepository.findById(quarterRequest.gameId()).orElseThrow();
 
-        Quarter quarter = QuarterRequest.toEntity(game, quarterDto);
+        Quarter quarter = QuarterRequest.toEntity(game, quarterRequest);
         quarterRepository.save(quarter);
     }
 }
