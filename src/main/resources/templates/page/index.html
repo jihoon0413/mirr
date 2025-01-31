@@ -27,7 +27,7 @@
                             navLinks:true,
                             initialView: 'dayGridMonth',
                             dateClick: function(info) {
-                                document.getElementById('newGameModal').value = info.dateStr;
+                                document.getElementById('eventDate').value = info.dateStr;
                                 var myModal = new bootstrap.Modal(document.getElementById('newGameModal'));
                                 myModal.show();
                             },
