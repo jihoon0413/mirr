@@ -30,7 +30,6 @@ public class MomService {
         return momRepository.findAllByGameId(gameId)
                 .stream().map(mom -> PlayerDto.from(mom.getPlayer()))
                 .toList();
-
     }
 
     @Transactional
