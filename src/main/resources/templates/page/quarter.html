@@ -15,6 +15,7 @@
     <div th:replace="~{fragments/modifyQuarterModal :: modifyQuarterModal}"></div>
     <div th:replace="~{fragments/newQuarterModal :: newQuarterModal}"></div>
     <div th:replace="~{fragments/modifyMomModal :: modifyMomModal}"></div>
+    <div th:replace="~{fragments/newAttendModal :: newAttendModal}"></div>
     <div class="container pt-4">
         <button>상세 기록 보기</button>
         <br><br>
@@ -57,6 +58,17 @@
         </label>
         <button type="submit" class="btn btn-success" th:value="${gameId}" id="btn_modifyMom">수정</button>
         <br><br>
+        <b>Attend </b><br>
+        <div class="player-container">
+            <div class="player-item" th:each="attend : ${attends}">
+                <span class="player-name" th:text="${attend.playerDto.name}">고준민</span>
+                <button class="remove-btn" th:value="${attend.id}" id="btn_deleteAttend">x</button>
+            </div>
+        </div>
+        <br>
+        <div class="buttons">
+        <button type="submit" class="btn btn-success" th:value="${gameId}" id="btn_addAttend">참석자 추가</button>
+        </div>
     </div>
     <script th:inline="javascript">
 
@@ -67,12 +79,13 @@
 
                 var gameId = document.getElementById('btn_newQuarter').value;
 
+<!--                var path = window.location.href-->
+<!--                console.log(path);-->
 
                 document.getElementById('gameId').value = gameId;
 
                 var myModal = new bootstrap.Modal(document.getElementById('newQuarterModal'));
                 myModal.show();
-
             });
         });
 
@@ -169,7 +182,7 @@
                         document.getElementById('momGameId').value = gameId;
                         console.log('게임 아이디 :', gameId);
 
-                        var select = document.getElementById('playerId');
+                        var select = document.getElementById('momPlayerId');
 
                         select.innerHTML = '';
 
@@ -184,7 +197,7 @@
                             return mom.id;
                         });
 
-                        $('#playerId').val(selectedValues).trigger('change');
+                        $('#momPlayerId').val(selectedValues).trigger('change');
 
                         var myModal = new bootstrap.Modal(document.getElementById('modifyMomModal'));
                         myModal.show();
@@ -193,10 +206,68 @@
             });
         });
 
+        // 참석자 추가
+        $(function(){
+            $("#btn_addAttend").click(function(){
+
+                var gameId = document.getElementById('btn_addAttend').value;
+
+                $.ajax({
+                    type:"get",
+                    url:'/player/findAll',
+                    success: function(data) {
+
+                        document.getElementById('attendGameId').value = gameId;
+
+                        var select = document.getElementById('attendPlayerId');
+
+                        select.innerHTML = '';
+
+                        data.forEach(function(player) {
+                            var option = document.createElement('option');
+                            option.value = player.id;  // 플레이어 ID
+                            option.textContent = player.name;  // 플레이어 이름
+                            select.appendChild(option);
+                        });
+
+                        var myModal = new bootstrap.Modal(document.getElementById('newAttendModal'));
+                        myModal.show();
+                    }
+                });
+            });
+        });
+
+
+        //attend 삭제
+        $(function(){
+            $(document).on('click', '.remove-btn', function(){
+
+                if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+                    return false;
+                }
+                var attendId = $(this).val();
+                console.log('삭제아이디 : ' + attendId);
+                $.ajax({
+                    type:"post",
+                    url:'/attend/delete/' + attendId,
+                    success: function() {
+                        location.reload();
+                    }
+                });
+            });
+        });
+
         //select2 검색기능
         $(document).ready(function(){
-            $('#playerId').select2({
+            $('#momPlayerId').select2({
                 dropdownParent: $('#modifyMomModal')
+            });
+        });
+
+        //select2 검색기능
+        $(document).ready(function(){
+            $('#attendPlayerId').select2({
+                dropdownParent: $('#newAttendModal')
             });
         });
 
@@ -205,6 +276,44 @@
     <style>
         .buttons {
             text-align: right;
+        }
+
+        .player-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .player-item {
+            display: flex;
+            align-items: center;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .player-name {
+            margin-right: 5px;
+        }
+
+        .remove-btn {
+            background-color: #ff4d4d;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff1a1a;
         }
     </style>
 
