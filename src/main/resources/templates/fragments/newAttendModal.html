@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:fragment="newAttendModal">
+    <div class="modal" id="newAttendModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">M.O.M 정보</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/attend/newAttend}" th:object="${momRequest}" method="post">
+                        <div class="mb-3">
+                            <input class="form-control" id="attendGameId" th:field="*{gameId}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="attendPlayerId" class="form-label">플레이어</label>
+                            <br>
+                            <select class="form-control select2" id="attendPlayerId" multiple="multiple" th:field="*{playerId}" style="width: 100%;" required>
+                                <option value="0">테스트</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
