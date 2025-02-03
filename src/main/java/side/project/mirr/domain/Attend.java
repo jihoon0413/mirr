@@ -24,4 +24,14 @@ public class Attend {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+
+    private Attend(Player player, Game game) {
+        this.player = player;
+        this.game = game;
+    }
+
+    public static Attend of(Player player, Game game) {
+        return new Attend(player,game);
+    }
+
 }
