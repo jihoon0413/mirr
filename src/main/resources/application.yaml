@@ -33,7 +33,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://ep-withered-band-a20389ow.eu-central-1.pg.koyeb.app/koyebdb
     username: ${KOYEB_DATASOURCE_USERNAME}
-    password: ${KOYEB_DATASOURCE_USERNAME}
+    password: ${KOYEB_DATASOURCE_PASSWORD}
   jpa:
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
