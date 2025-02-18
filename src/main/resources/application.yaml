@@ -37,12 +37,6 @@ spring:
   sql:
     init:
       mode: always
-#      data.sql??
-
-
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
 
 
 ---
@@ -50,3 +44,16 @@ spring:
   config:
     activate:
       on-profile: prod
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: postgresql://mirr-spring-database.flycast
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always
