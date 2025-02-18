@@ -25,15 +25,10 @@ spring:
     activate:
       on-profile: local
   datasource:
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    url: jdbc:mariadb://localhost:3306/mirr
-#    username: ${SPRING_DATASOURCE_USERNAME}
-#    password: ${SPRING_DATASOURCE_PASSWORD}
-
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ep-withered-band-a20389ow.eu-central-1.pg.koyeb.app/koyebdb
-    username: ${KOYEB_DATASOURCE_USERNAME}
-    password: ${KOYEB_DATASOURCE_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/mirr
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
