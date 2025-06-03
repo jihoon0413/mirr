@@ -5,10 +5,10 @@ import side.project.mirr.dto.PlayerDto;
 
 public record RankingResponse(
         PlayerDto playerDto,
-        int count
+        Long count
 ) {
 
-    public static RankingResponse from(PlayerDto playerDto, int count) {
+    public static RankingResponse from(PlayerDto playerDto, Long count) {
         return new RankingResponse(
                 playerDto,
                 count

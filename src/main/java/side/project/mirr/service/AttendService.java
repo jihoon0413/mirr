@@ -2,14 +2,17 @@ package side.project.mirr.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 import side.project.mirr.domain.Attend;
 import side.project.mirr.domain.Game;
 import side.project.mirr.domain.Player;
 import side.project.mirr.dto.AttendDto;
-import side.project.mirr.dto.GameDto;
 import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.request.MomRequest;
+import side.project.mirr.dto.response.RankingResponse;
 import side.project.mirr.repository.AttendRepository;
 import side.project.mirr.repository.GameRepository;
 import side.project.mirr.repository.PlayerRepository;
@@ -31,6 +34,22 @@ public class AttendService {
                 .stream().map(AttendDto::from)
                 .sorted(Comparator.comparing(attendDto -> attendDto.playerDto().name()))
                 .toList();
+    }
+
+    public Page<RankingResponse> getAttendRanking(Pageable pageable) {
+        Page<Object[]> result = attendRepository.countAttend(pageable);
+
+        List<RankingResponse> attendCount = result.stream().map(a -> {
+            Player player = (Player) a[0];
+            Long count = (Long) a[1];
+            return RankingResponse.from(PlayerDto.from(player), count);
+        }).toList();
+
+        return new PageImpl<>(
+                attendCount,
+                pageable,
+                result.getTotalElements()
+        );
     }
 
     public void deleteAttend(Long attendId) {

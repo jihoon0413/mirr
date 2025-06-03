@@ -2,16 +2,18 @@ package side.project.mirr.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Player;
 import side.project.mirr.domain.Point;
 import side.project.mirr.domain.Quarter;
-import side.project.mirr.domain.eNum.PointType;
 import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.PointDto;
 import side.project.mirr.dto.request.PointRequest;
 import side.project.mirr.dto.response.RankingResponse;
-import side.project.mirr.repository.GameRepository;
 import side.project.mirr.repository.PlayerRepository;
 import side.project.mirr.repository.PointRepository;
 import side.project.mirr.repository.QuarterRepository;
@@ -28,26 +30,42 @@ public class PointService {
     private final PlayerRepository playerRepository;
     private final PointRepository pointRepository;
 
-    public List<RankingResponse> getGoalRanking() {
-        return playerRepository.findAll()
-                .stream().map(player -> {
-                    var count = pointRepository.countByPlayerIdAndType(player.getId(), PointType.GOAL);
-                    return RankingResponse.from(PlayerDto.from(player), count);
-                })
-                .filter(response -> response.count() > 0)
-                .sorted(Comparator.comparing(RankingResponse::count).reversed())
-                .toList();
+    //TODO: 날짜 별로 조회
+    public Page<RankingResponse> getGoalRanking(Pageable pageable) {
+
+        Page<Object[]> result = pointRepository.countGoal(pageable);
+
+        List<RankingResponse> goalCount = result.stream().map(a -> {
+            Player player = (Player) a[0];
+            Long count = (Long) a[1];
+            return RankingResponse.from(PlayerDto.from(player), count);
+        }).toList();
+
+        return new PageImpl<>(
+                goalCount,
+                pageable,
+                result.getTotalElements()
+        );
+
     }
 
-    public List<RankingResponse> getAssistRanking() {
-        return playerRepository.findAll()
-                .stream().map(player -> {
-                    var count = pointRepository.countByPlayerIdAndType(player.getId(), PointType.ASSIST);
-                    return RankingResponse.from(PlayerDto.from(player), count);
-                })
-                .filter(response -> response.count() > 0)
-                .sorted(Comparator.comparing(RankingResponse::count).reversed())
-                .toList();
+    public Page<RankingResponse> getAssistRanking(int page) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Object[]> result = pointRepository.countAssist(pageable);
+
+        List<RankingResponse> assistCount = result.stream().map(a -> {
+            Player player = (Player) a[0];
+            Long count = (Long) a[1];
+            return RankingResponse.from(PlayerDto.from(player), count);
+        }).toList();
+
+        return new PageImpl<>(
+                assistCount,
+                pageable,
+                result.getTotalElements()
+        );
+
     }
 
     public List<PointDto> getPointByQuarter(Long quarterId) {

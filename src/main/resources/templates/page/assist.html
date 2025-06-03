@@ -22,30 +22,41 @@
             </tr>
             </thead>
             <tbody th:fragment="gameTableFragment" id="gameTbody">
-            <tr th:each="goal, iterStat : ${rankList}">
-                <td th:text="${iterStat.count}"></td>
-                <td th:text="${goal.playerDto.name}"></td>
-                <td th:text="${goal.playerDto.backNum}"></td>
-                <td th:text="${goal.playerDto.pos}"></td>
-                <td th:text="${goal.count}"></td>
+            <tr th:each="assist, iterStat : ${rankList}">
+                <td th:text="${rankList.pageable.pageNumber*10 +iterStat.count}"></td>
+                <td th:text="${assist.playerDto.name}"></td>
+                <td th:text="${assist.playerDto.backNum}"></td>
+                <td th:text="${assist.playerDto.pos}"></td>
+                <td th:text="${assist.count}"></td>
             </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+<!--TODO: 페이지네이션-->
+<!--            <ul class="pagination" th:with="start=${(rankList.number/maxPage)*maxPage + 1}">-->
+<!--                <li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">Next</a></li>-->
+<!--            </ul>-->
+        </nav>
     </div>
-    <script type="text/javascript">
-
-        document.addEventListener('DOMContentLoaded', function() {
-            $(function () {
-                $.ajax({
-                    type:"get",
-                    url:"point/getAssistRanking",
-                    success:function(rankList){
-                        console.log('받은 데이터:', rankList);
-                        $("#gameTbody").replaceWith(rankList);
-                    }
-                });
-            });
-        });
-    </script>
     </body>
 </html>
+
+
+
+<script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', function() {
+        $(function () {
+            $.ajax({
+                type:"get",
+                url:"point/getAssistRanking?page=0&size=10",
+                success:function(rankList){
+                    console.log('받은 데이터:', rankList);
+                    $("#gameTbody").replaceWith(rankList);
+                }
+            });
+        });
+    });
+</script>

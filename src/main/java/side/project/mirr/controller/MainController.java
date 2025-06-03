@@ -17,6 +17,7 @@ public class MainController {
     private final PlayerService playerService;
     private final GameService gameService;
 
+    //TODO: 현재 달의 매치만 가져오기
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("gameDTO", new GameRequest("",""));
@@ -37,4 +38,13 @@ public class MainController {
     public String mom() {
         return "page/mom";
     }
+
+    @GetMapping("/attend")
+    public String attend() {
+        return "page/attend";
+    }
+
+    @GetMapping("/players")
+    public String player() {return "page/players";}
+
 }

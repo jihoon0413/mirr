@@ -58,7 +58,7 @@ public class MomService {
     public List<RankingResponse> getMomRanking() {
         return playerRepository.findAll()
                 .stream().map(player -> {
-                    var count = momRepository.countByPlayerId(player.getId());
+                    Long count = momRepository.countByPlayerId(player.getId());
                     return RankingResponse.from(PlayerDto.from(player), count);
                 })
                 .filter(response -> response.count() > 0)

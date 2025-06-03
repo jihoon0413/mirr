@@ -12,5 +12,5 @@ public interface MomRepository extends JpaRepository<Mom, Long> {
 
     void deleteByGameIdAndPlayerId(Long gameId, Long playerId);
 
-    int countByPlayerId(Long id);
+    Long countByPlayerId(Long id);
 }
