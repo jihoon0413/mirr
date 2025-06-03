@@ -3,6 +3,9 @@ package side.project.mirr.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Game;
 import side.project.mirr.domain.Mom;
@@ -55,14 +58,20 @@ public class MomService {
 
     }
 
-    public List<RankingResponse> getMomRanking() {
-        return playerRepository.findAll()
-                .stream().map(player -> {
-                    Long count = momRepository.countByPlayerId(player.getId());
-                    return RankingResponse.from(PlayerDto.from(player), count);
-                })
-                .filter(response -> response.count() > 0)
-                .sorted(Comparator.comparing(RankingResponse::count).reversed())
-                .toList();
+    public Page<RankingResponse> getMomRanking(Pageable pageable) {
+
+        Page<Object[]> result = momRepository.countMom(pageable);
+
+        List<RankingResponse> momCount = result.stream().map(a -> {
+            Player player = (Player) a[0];
+            Long count = (Long) a[1];
+            return RankingResponse.from(PlayerDto.from(player), count);
+        }).toList();
+
+        return new PageImpl<>(
+                momCount,
+                pageable,
+                result.getTotalElements()
+        );
     }
 }
