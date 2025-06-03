@@ -29,6 +29,9 @@ public class PlayerService {
 
     }
 
+    public List<PlayerDto> findAll() {
+        return playerRepository.findAll().stream().map(PlayerDto::from).toList();
+    }
 
     public Page<PlayerDto> findAll(Pageable pageable) {
         return playerRepository.findAll(pageable).map(PlayerDto::from);
