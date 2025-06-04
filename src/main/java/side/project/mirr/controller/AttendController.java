@@ -37,14 +37,6 @@ public class AttendController {
     //TODO: 참석자 체크박스로 한번에 추가하기
     //TODO: 득점, 어시스트 기록후 게임디테일 화면으로 올 수 있는 버튼 추가
 
-//    @GetMapping("/getAttendRanking")
-//    public String getAttendRanking(Model model, Pageable pageable) {
-//        Page<RankingResponse> attendRanking = attendService.getAttendRanking(pageable);
-//        model.addAttribute("rankList", attendRanking);
-//        return "page/attend :: gameTableFragment";
-//    }
-
-
     @PostMapping("/delete/{attendId}")
     @ResponseBody
     public void deleteAttend(@PathVariable("attendId") Long attendId) {

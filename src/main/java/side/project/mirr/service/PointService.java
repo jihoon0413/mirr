@@ -18,7 +18,6 @@ import side.project.mirr.repository.PlayerRepository;
 import side.project.mirr.repository.PointRepository;
 import side.project.mirr.repository.QuarterRepository;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Slf4j

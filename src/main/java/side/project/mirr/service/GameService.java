@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Game;
 import side.project.mirr.dto.GameDto;
-import side.project.mirr.dto.QuarterDto;
 import side.project.mirr.repository.GameRepository;
 import side.project.mirr.repository.QuarterRepository;
 

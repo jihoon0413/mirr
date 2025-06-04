@@ -43,22 +43,6 @@ public class PointController {
         return "redirect:/point/detail/" + pointRequest.quarterId();
     }
 
-
-//    @GetMapping("/getGoalRanking")
-//    public String getGoalRanking(Model model, Pageable pageable) {
-//        Page<RankingResponse> goalRanking = pointService.getGoalRanking(pageable);
-//        model.addAttribute("rankList", goalRanking);
-//        return "page/score :: gameTableFragment";
-//    }
-
-//    @GetMapping("/getAssistRanking")
-//    public String getAssistRanking(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-//        Page<RankingResponse> assistRanking = pointService.getAssistRanking(page,10);
-//        model.addAttribute("rankList", assistRanking);
-//        model.addAttribute("maxPage", 10);
-//        return "page/assist";
-//    }
-
     @PostMapping("/delete/{pointId}")
     @ResponseBody
     public void deleteById(@PathVariable("pointId") Long pointId) {
