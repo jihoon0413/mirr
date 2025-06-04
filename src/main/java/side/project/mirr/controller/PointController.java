@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,19 +51,13 @@ public class PointController {
         return "page/score :: gameTableFragment";
     }
 
-    @GetMapping("/getAssistRanking")
-    public String getAssistRanking(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-
-        Page<RankingResponse> assistRanking = pointService.getAssistRanking(page);
-
-        model.addAttribute("rankList", assistRanking);
-        model.addAttribute("maxPage", 10);
-        log.info(String.valueOf(assistRanking.getTotalPages()));
-        log.info(String.valueOf(assistRanking.getTotalElements()));
-        log.info(String.valueOf(assistRanking.getSize()));
-        log.info(String.valueOf(assistRanking.getNumber()));
-        return "page/assist :: gameTableFragment";
-    }
+//    @GetMapping("/getAssistRanking")
+//    public String getAssistRanking(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+//        Page<RankingResponse> assistRanking = pointService.getAssistRanking(page,10);
+//        model.addAttribute("rankList", assistRanking);
+//        model.addAttribute("maxPage", 10);
+//        return "page/assist";
+//    }
 
     @PostMapping("/delete/{pointId}")
     @ResponseBody

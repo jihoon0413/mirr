@@ -49,9 +49,9 @@ public class PointService {
 
     }
 
-    public Page<RankingResponse> getAssistRanking(int page) {
+    public Page<RankingResponse> getAssistRanking(int page, int size) {
 
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, size);
         Page<Object[]> result = pointRepository.countAssist(pageable);
 
         List<RankingResponse> assistCount = result.stream().map(a -> {

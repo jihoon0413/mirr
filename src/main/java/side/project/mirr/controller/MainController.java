@@ -29,10 +29,10 @@ public class MainController {
         return "page/score";
     }
 
-    @GetMapping("/assist")
-    public String assist() {
-        return "page/assist";
-    }
+//    @GetMapping("/assist")
+//    public String assist() {
+//        return "page/assist";
+//    }
 
     @GetMapping("/mom")
     public String mom() {

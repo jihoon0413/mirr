@@ -31,7 +31,7 @@ public class AttendController {
     public String getAttendRanking(Model model, Pageable pageable) {
         Page<RankingResponse> attendRanking = attendService.getAttendRanking(pageable);
         model.addAttribute("rankList", attendRanking);
-        return "page/assist :: gameTableFragment";
+        return "page/attend :: gameTableFragment";
     }
 
 
