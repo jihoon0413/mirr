@@ -31,18 +31,7 @@
                 </tr>
             </tbody>
         </table>
-        <nav style="text-align: center" xmlns:th="http://www.w3.org/1999/xhtml">
-            <ul class="pagination" th:with="start=${(rankList.number/maxPage)*maxPage + 1}, end=(${(rankList.totalPages == 0) ? 1 : (start + (maxPage - 1) < rankList.totalPages ? start + (maxPage - 1) : rankList.totalPages)})">
-                <li class="page-item" th:if="${start > 1}"><a class="page-link" th:href="@{/assist(page=0)}" th:text="'<<'"></a></li>
-                <li class="page-item" th:if="${start > 1}"><a class="page-link" th:href="@{/assist(page=${start - 2})}" th:text="Previous"></a></li>
-                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
-                    th:classappend="${page - 1} == ${rankList.number} ? 'active'">
-                    <a class="page-link" th:text="${page}" th:href="@{/assist(page=${page - 1})}"></a>
-                </li>
-                <li class="page-item" th:if="${end < rankList.totalPages}"><a class="page-link" th:href="@{/assist(page=${start + maxPage -1})}" th:text="Next"></a></li>
-                <li class="page-item" th:if="${end < rankList.totalPages}"><a class="page-link" th:href="@{/assist(page=${rankList.totalPages - 1})}" th:text="'>>'"></a></li>
-            </ul>
-        </nav>
+        <nav th:replace="~{fragments/pagination::pageNavBar(${rankList}, ${maxPage}, 'assist')}"></nav>
     </div>
     </body>
 </html>

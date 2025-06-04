@@ -29,36 +29,7 @@
     </tr>
     </tbody>
   </table>
-  <nav style="text-align: center" xmlns:th="http://www.w3.org/1999/xhtml">
-    <ul class="pagination" th:with="start=${(players.number/maxPage)*maxPage + 1}, end=(${(players.totalPages == 0) ? 1 : (start + (maxPage - 1) < players.totalPages ? start + (maxPage - 1) : players.totalPages)})">
-      <li class="page-item" th:if="${start > 1}"><a class="page-link" th:href="@{/players(page=0)}" th:text="'<<'"></a></li>
-      <li class="page-item" th:if="${start > 1}"><a class="page-link" th:href="@{/players(page=${start - 2})}" th:text="Previous"></a></li>
-      <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
-          th:classappend="${page - 1} == ${players.number} ? 'active'">
-        <a class="page-link" th:text="${page}" th:href="@{/players(page=${page - 1})}"></a>
-      </li>
-      <li class="page-item" th:if="${end < players.totalPages}"><a class="page-link" th:href="@{/players(page=${start + maxPage -1})}" th:text="Next"></a></li>
-      <li class="page-item" th:if="${end < players.totalPages}"><a class="page-link" th:href="@{/players(page=${players.totalPages - 1})}" th:text="'>>'"></a></li>
-    </ul>
-  </nav>
+  <nav th:replace="~{fragments/pagination::pageNavBar(${players}, ${maxPage}, 'players')}"></nav>
 </div>
 </body>
 </html>
-
-
-
-<script type="text/javascript">
-
-  document.addEventListener('DOMContentLoaded', function() {
-      $(function () {
-          $.ajax({
-              type:"get",
-              url:"players/getAllPlayers?page=0&size=10",
-              success:function(players){
-                  console.log('받은 데이터:', players);
-                  $("#gameTbody").replaceWith(players);
-              }
-          });
-      });
-  });
-</script>
