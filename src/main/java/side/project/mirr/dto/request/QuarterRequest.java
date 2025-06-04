@@ -5,7 +5,7 @@ import side.project.mirr.domain.Quarter;
 
 public record QuarterRequest(
         Long gameId,
-        int quarterNum,
+        Integer quarterNum,
         String opponent,
         int point,
         int losePoint

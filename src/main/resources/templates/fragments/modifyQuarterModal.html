@@ -18,8 +18,8 @@
                 <div class="modal-body">
                     <form th:action="@{/quarter/update}" th:object="${quarterDTO}" method="post">
                         <div class="mb-3">
-                            <label for="quarterId" class="form-label">쿼터 아이디</label>
-                            <input type="text" class="form-control" id="quarterId" th:field="*{id}" readonly>
+                            <label for="quarterId" class="form-label" hidden>쿼터 아이디</label>
+                            <input type="text" class="form-control" id="quarterId" th:field="*{id}" readonly hidden>
                         </div>
                         <div class="mb-3">
                             <label for="opponent" class="form-label">쿼터 순서</label>

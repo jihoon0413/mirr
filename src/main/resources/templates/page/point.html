@@ -16,6 +16,7 @@
 <!--    <div th:replace="~{fragments/recordNewModal :: recordNewModal}"></div>-->
     <div class="container pt-4">
         <button>상세 기록 보기</button>
+
         <br><br>
         <table class="table table-bordered">
             <thead>
@@ -35,14 +36,13 @@
         </table>
 
         <div class="buttons">
+            <button type="submit" class="btn btn-primary"><a class="page-link" th:href="|/quarter/detail/${gameId}|">쿼터 수정화면</a></button>
             <button type="submit" class="btn btn-success" th:value="${quarterId}" id="btn_newGoal">골 추가</button>
             <button type="submit" class="btn btn-success" th:value="${quarterId}" id="btn_newAssist">어시스트 추가</button>
         </div>
 
     </div>
     <script type="text/javascript">
-
-
         // 골 추가
         $(function(){
             $("#btn_newGoal").click(function(){
@@ -66,6 +66,7 @@
                             select.appendChild(option);
                         });
 
+                        document.getElementById('gameId').value = gameId;
                         document.getElementById('quarterId').value = quarterId;
                         document.getElementById('pointType').value = 'GOAL';
                         var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));
@@ -85,7 +86,7 @@
 
                 $.ajax({
                     type:"get",
-                    url:'/player/findAll',
+                    url:'/players/findAll',
                     success: function(data) {
 
                         var select = document.getElementById('playerId');
@@ -99,6 +100,7 @@
                             select.appendChild(option);
                         });
 
+                        document.getElementById('gameId').value = gameId;
                         document.getElementById('quarterId').value = quarterId;
                         document.getElementById('pointType').value = 'ASSIST';
                         var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));

@@ -17,7 +17,8 @@ public class MainController {
     private final PlayerService playerService;
     private final GameService gameService;
 
-    //TODO: 현재 달의 매치만 가져오기
+    //TODO: 현재 달의 매치만 먼저 조회하기
+    //TODO: 승률
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("gameDTO", new GameRequest("",""));

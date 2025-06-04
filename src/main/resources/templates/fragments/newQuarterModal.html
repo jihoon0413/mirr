@@ -18,16 +18,22 @@
                 <div class="modal-body">
                     <form th:action="@{/quarter/newQuarter}" th:object="${quarterRequest}" method="post">
                         <div class="mb-3">
-                            <label for="gameId" class="form-label">게임 아이디</label>
-                            <input type="text" class="form-control" id="gameId" th:field="*{gameId}" readonly>
+                            <label for="gameId" class="form-label" hidden>게임 아이디</label>
+                            <input type="text" class="form-control" id="gameId" th:field="*{gameId}" readonly hidden>
                         </div>
                         <div class="mb-3">
-                            <label for="opponent" class="form-label">쿼터 순서</label>
-                            <input type="text" class="form-control" id="quarterNum" th:field="*{quarterNum}" required>
+                            <label for="opponent" class="form-label">쿼터 순서</label><br>
+                            <select class="form-control select2" th:field="*{quarterNum}" style="width: 100%;" required>
+                                <option value="">선택하세요</option>
+                                <option type="text" id="quarterNum" th:each="num : ${#numbers.sequence(1, 10)}"
+                                        th:value="${num}"
+                                        th:text="${num}">
+                                </option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="opponent" class="form-label">상대팀</label>
-                            <input type="text" class="form-control" id="opponent" th:field="*{opponent}" required>
+                            <input type="text" class="form-control" id="opponent" th:field="*{opponent}" placeholder="상대팀명" required>
                         </div>
                         <div class="mb-3">
                         <label for="point" class="form-label">득점</label>
