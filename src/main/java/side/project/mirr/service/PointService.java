@@ -31,8 +31,9 @@ public class PointService {
     private final PointRepository pointRepository;
 
     //TODO: 날짜 별로 조회
-    public Page<RankingResponse> getGoalRanking(Pageable pageable) {
+    public Page<RankingResponse> getGoalRanking(int page, int size) {
 
+        Pageable pageable = PageRequest.of(page, size);
         Page<Object[]> result = pointRepository.countGoal(pageable);
 
         List<RankingResponse> goalCount = result.stream().map(a -> {

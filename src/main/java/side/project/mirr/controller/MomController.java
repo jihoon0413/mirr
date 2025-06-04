@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import side.project.mirr.dto.request.MomRequest;
 import side.project.mirr.dto.response.RankingResponse;
 import side.project.mirr.service.MomService;
@@ -23,18 +24,30 @@ public class MomController {
 
     private final MomService momService;
 
+    @GetMapping
+    public String getMomRanking(Model model,
+                                @RequestParam(value = "page", defaultValue = "0") int page,
+                                @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<RankingResponse> momRanking = momService.getMomRanking(page, size);
+        model.addAttribute("rankList", momRanking);
+        model.addAttribute("maxPage", 5);
+
+        return "page/mom";
+
+    }
+
     @PostMapping("/modify")
     public String modifyMom(MomRequest momRequest){
         momService.modify(momRequest);
         return "redirect:/quarter/detail/" + momRequest.gameId();
     }
 
-    @GetMapping("/getMomRanking")
-    public String getMomRanking(Model model, Pageable pageable) {
-        Page<RankingResponse> momRanking = momService.getMomRanking(pageable);
-        model.addAttribute("rankList", momRanking);
-        return "page/mom :: gameTableFragment";
-    }
+//    @GetMapping("/getMomRanking")
+//    public String getMomRanking(Model model, Pageable pageable) {
+//        Page<RankingResponse> momRanking = momService.getMomRanking(pageable);
+//        model.addAttribute("rankList", momRanking);
+//        return "page/mom :: gameTableFragment";
+//    }
 
 
 }

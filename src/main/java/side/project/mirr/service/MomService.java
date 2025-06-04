@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Game;
@@ -58,8 +59,9 @@ public class MomService {
 
     }
 
-    public Page<RankingResponse> getMomRanking(Pageable pageable) {
+    public Page<RankingResponse> getMomRanking(int page, int size) {
 
+        Pageable pageable = PageRequest.of(page,size);
         Page<Object[]> result = momRepository.countMom(pageable);
 
         List<RankingResponse> momCount = result.stream().map(a -> {

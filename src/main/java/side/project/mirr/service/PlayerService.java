@@ -3,6 +3,7 @@ package side.project.mirr.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import side.project.mirr.domain.Player;
@@ -35,7 +36,6 @@ public class PlayerService {
 
     public Page<PlayerDto> findAll(Pageable pageable) {
         return playerRepository.findAll(pageable).map(PlayerDto::from);
-//                .stream().sorted(Comparator.comparing(PlayerDto::name));
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import side.project.mirr.domain.Attend;
@@ -36,7 +37,9 @@ public class AttendService {
                 .toList();
     }
 
-    public Page<RankingResponse> getAttendRanking(Pageable pageable) {
+    public Page<RankingResponse> getAttendRanking(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
         Page<Object[]> result = attendRepository.countAttend(pageable);
 
         List<RankingResponse> attendCount = result.stream().map(a -> {

@@ -24,27 +24,27 @@ public class MainController {
         return "page/index";
     }
 
-    @GetMapping("/score")
-    public String score() {
-        return "page/score";
-    }
+//    @GetMapping("/score")
+//    public String score() {
+//        return "page/score";
+//    }
 
 //    @GetMapping("/assist")
 //    public String assist() {
 //        return "page/assist";
 //    }
 
-    @GetMapping("/mom")
-    public String mom() {
-        return "page/mom";
-    }
+//    @GetMapping("/mom")
+//    public String mom() {
+//        return "page/mom";
+//    }
 
-    @GetMapping("/attend")
-    public String attend() {
-        return "page/attend";
-    }
+//    @GetMapping("/attend")
+//    public String attend() {
+//        return "page/attend";
+//    }
 
-    @GetMapping("/players")
-    public String player() {return "page/players";}
+//    @GetMapping("/players")
+//    public String player() {return "page/players";}
 
 }
