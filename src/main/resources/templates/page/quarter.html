@@ -19,7 +19,7 @@
     <div class="container pt-4">
         <button>상세 기록 보기</button>
         <br><br>
-        <table class="table table-bordered">
+        <table id="quarterTable" class="table table-bordered">
             <thead>
             <tr>
                 <th>Quarter</th>
@@ -74,23 +74,26 @@
     <script th:inline="javascript">
 
 
-        // 쿼터 추가
+        // 쿼터 추가 모달
         $(function(){
             $("#btn_newQuarter").click(function(){
 
                 var gameId = document.getElementById('btn_newQuarter').value;
-
-
-<!--                var path = window.location.href-->
-<!--                console.log(path);-->
+                var rowCount = $('#quarterTable tr').length;
+                console.log('쿼터 개수:', rowCount);
 
                 document.getElementById('gameId').value = gameId;
+                document.getElementById('index').value = rowCount;
 
                 var myModal = new bootstrap.Modal(document.getElementById('newQuarterModal'));
                 myModal.show();
             });
         });
 
+        //쿼터 추가
+         $(function() {
+            $('#newQuarterForm').on('submit', postRequest(newQuarterForm));
+        });
 
 
         // 게임삭제 모든 쿼터 삭제
@@ -114,7 +117,7 @@
             });
         });
 
-        //쿼터 수정
+        //쿼터 수정 모달
         document.addEventListener('DOMContentLoaded', function () {
             $(function(){
                 $(document).on('click', '.btn-primary', function(){
@@ -140,13 +143,14 @@
                             console.error("Error:", error);
                         }
                     });
-
-
-
                 });
             });
         });
 
+        //쿼터 수정
+        $(function() {
+            $('#modifyQuarterForm').on('submit', postRequest(modifyQuarterForm));
+        });
 
 
 
@@ -168,8 +172,7 @@
             });
         });
 
-
-        //mom 수정
+        //mom 수정 모달
         $(function(){
             $("#btn_modifyMom").click(function(){
 
@@ -208,7 +211,13 @@
             });
         });
 
-        // 참석자 추가
+        // MOM 수정
+        $(function() {
+            $('#modifyMomFrom').on('submit', postRequest(modifyMomFrom));
+        });
+
+
+        // 참석자 추가 모달
         $(function(){
             $("#btn_addAttend").click(function(){
 
@@ -239,6 +248,11 @@
             });
         });
 
+        // 참석자 추가
+        $(function() {
+                $('#newAttendForm').on('submit', postRequest(newAttendForm));
+        });
+
 
         //attend 삭제
         $(function(){
@@ -258,6 +272,36 @@
                 });
             });
         });
+
+        function postRequest(formId) {
+            $(formId).on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'post',
+                    url: form.attr('action'),
+                    data: formData,
+                    beforeSend: function(xhr) {
+                        var csrfToken = $('meta[name="_csrf"]').attr('content');
+                        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+                        if (csrfHeader && csrfToken) {
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        }
+                    },
+                    success: function(response) {
+                        // alert("저장 완료!"); // 필요하면 사용
+                        $('#playerDetailModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("저장 실패: " + error);
+                    }
+                });
+            });
+        }
 
         //select2 검색기능
         $(document).ready(function(){
