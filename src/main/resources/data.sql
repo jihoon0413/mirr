@@ -71,16 +71,13 @@ insert into player (name, pos, back_num) values ('최유승', 'CM', 81);
 insert into player (name, pos, back_num) values ('김승찬', 'CM', 82);
 insert into player (name, pos, back_num) values ('김윤태', 'CM', 83);
 insert into player (name, pos, back_num) values ('정세용', 'CM', 61);
-
-
-insert into game (id, stadium, match_day) values (1, '창평', '2025-01-05');
-insert into game (id, stadium, match_day) values (2, '동구다목적', '2025-01-06');
-insert into game (id, stadium, match_day) values (3, '창평', '2025-01-12');
-insert into game (id, stadium, match_day) values (4, '동구다목적', '2025-01-13');
-insert into game (id, stadium, match_day) values (5, '창평', '2025-01-19');
-insert into game (id, stadium, match_day) values (6, '동구다목적', '2025-01-20');
-insert into game (id, stadium, match_day) values (7, '동구다목적', '2025-06-10');
-
+insert into game (stadium, match_day) values ('창평', '2025-01-05');
+insert into game (stadium, match_day) values ('동구다목적', '2025-01-06');
+insert into game (stadium, match_day) values ('창평', '2025-01-12');
+insert into game (stadium, match_day) values ('동구다목적', '2025-01-13');
+insert into game (stadium, match_day) values ('창평', '2025-01-19');
+insert into game (stadium, match_day) values ('동구다목적', '2025-01-20');
+insert into game (stadium, match_day) values ('동구다목적', '2025-06-10');
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '도도', 1, 0, 2);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '창평', 2, 2, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '도도', 3, 2, 0);
@@ -96,7 +93,6 @@ insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '샤크스', 4, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 5, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 6, 5, 0);
-
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 11);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 50);
 insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 2, 36);
@@ -127,7 +123,6 @@ insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 12, 36);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 12, 2);
 insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-12', 12, 2);
---insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 12, 승찬);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 13, 44);
 insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 13, 67);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 14, 18);
@@ -141,14 +136,11 @@ insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 34);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-12', 15, 34);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 15, 70);
-
 insert into mom (game_id, player_id) values (1, 11);
 insert into mom (game_id, player_id) values (2, 15);
 insert into mom (game_id, player_id) values (2, 19);
 insert into mom (game_id, player_id) values (3, 44);
 insert into mom (game_id, player_id) values (3, 58);
-
-
 insert into attend (game_id, player_id) values (1, 30);
 insert into attend (game_id, player_id) values (1, 66);
 insert into attend (game_id, player_id) values (1, 36);

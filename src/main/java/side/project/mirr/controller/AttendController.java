@@ -34,8 +34,8 @@ public class AttendController {
         attendService.newAttends(attendRequest);
         return "redirect:/quarter/detail/" + attendRequest.gameId();
     }
+    //TODO: 같은 경기에 참석자 중복 저장되지 않도록 하기
     //TODO: 참석자 체크박스로 한번에 추가하기
-    //TODO: 득점, 어시스트 기록후 게임디테일 화면으로 올 수 있는 버튼 추가
 
     @PostMapping("/delete/{attendId}")
     @ResponseBody
