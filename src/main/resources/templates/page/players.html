@@ -8,6 +8,8 @@
   <meta charset='utf-8' />
 </head>
 <body>
+<div th:replace="~{fragments/newPlayerModal :: newPlayerModal}"></div>
+<div th:replace="~{fragments/playerDetailModal :: playerDetailModal}"></div>
 <div class="container pt-4">
   <button id="listBtn">선수 목록</button>
   <br><br>
@@ -18,18 +20,135 @@
       <th>NAME</th>
       <th>BACKNUM</th>
       <th>POSITION</th>
+      <th>DETAIL</th>
     </tr>
     </thead>
     <tbody th:fragment="gameTableFragment" id="gameTbody">
-    <tr th:each="player, iterStat : ${players}">
+    <tr th:each="player, iterStat : ${players}" >
       <td th:text="${players.pageable.pageNumber*10 +iterStat.count}"></td>
       <td th:text="${player.name}"></td>
       <td th:text="${player.backNum}"></td>
       <td th:text="${player.pos}"></td>
+      <td>
+        <button class="btn btn-primary" th:value="${player.id}" id="player_detail">상세 보기</button>
+      </td>
     </tr>
     </tbody>
   </table>
+  <div class="buttons">
+    <button type="submit" class="btn btn-success" id="btn_newPlayer">선수 추가</button>
+  </div>
   <nav th:replace="~{fragments/pagination::pageNavBar(${players}, ${maxPage}, 'players')}"></nav>
 </div>
+<script th:inline="javascript">
+    $(function(){
+        $("#btn_newPlayer").click(function(){
+
+            var myModal = new bootstrap.Modal(document.getElementById('newPlayerModal'));
+            myModal.show();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $(function(){
+            $(document).on('click', '#player_detail', function(){
+
+                var playerId = $(this).val();
+                console.log('playerId : ' + playerId);
+
+                $.ajax({
+                    type:"get",
+                    url:'/players/playerDetail/'+playerId,
+                    success: function(data) {
+
+                        console.log('data : ', data);
+                        console.log('name : ', data.playerDto.name);
+                        document.getElementById('delete_player').setAttribute('data-player-id', data.playerDto.id);
+                        document.getElementById('playerId').value = data.playerDto.id;
+                        document.getElementById('playerName').value = data.playerDto.name;
+                        document.getElementById('pos2').value = data.playerDto.pos;
+                        document.getElementById('backNumber').value = data.playerDto.backNum;
+
+                        $('#pos').val(data.playerDto.pos).trigger('change');
+
+                        var myModal = new bootstrap.Modal(document.getElementById('playerDetailModal'));
+                        myModal.show();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+
+                });
+            });
+        });
+    });
+
+    $(function() {
+
+        $('#modifyPlayerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var formData = form.serialize();
+
+            $.ajax({
+                type: 'post',
+                url: form.attr('action'),
+                data: formData,
+                beforeSend: function(xhr) {
+                    var csrfToken = $('meta[name="_csrf"]').attr('content');
+                    var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+                    if (csrfHeader && csrfToken) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    }
+                },
+                success: function(response) {
+                    // alert("저장 완료!"); // 필요하면 사용
+                    $('#playerDetailModal').modal('hide');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert("저장 실패: " + error);
+                }
+            });
+        });
+    });
+
+
+    // player 삭제
+    $(function() {
+        $("#delete_player").click(function(e) {
+
+            if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+                return false;
+            }
+
+            e.preventDefault();
+
+            var playerId = $('#delete_player').data('player-id');
+            console.log('playerId', playerId);
+
+            $.ajax({
+                type:"post",
+                url:'/players/deletePlayer/'+ playerId,
+                success: function(response) {
+    <!--                    alert("삭제 완료!");-->
+                    $('#playerDetailModal').modal('hide');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert("삭제 실패: " + error);
+                }
+            });
+
+        });
+    });
+
+</script>
+<style>
+  .buttons {
+      text-align: right;
+  }
+</style>
 </body>
 </html>

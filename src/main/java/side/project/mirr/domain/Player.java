@@ -1,10 +1,7 @@
 package side.project.mirr.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import side.project.mirr.domain.eNum.Position;
 
 import java.util.HashSet;
@@ -12,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player {
@@ -29,6 +27,12 @@ public class Player {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Point> points = new HashSet<>();
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Attend> attends = new HashSet<>();
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Mom> moms = new HashSet<>();
 
 
     private Player(String name, Position pos, int backNum) {
