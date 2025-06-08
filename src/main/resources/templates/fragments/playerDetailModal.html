@@ -39,6 +39,24 @@
                             <label for="backNumber" class="form-label">등번호</label>
                             <input type="text" class="form-control" id="backNumber" th:field="*{backNum}" required>
                         </div>
+
+
+                        <div class="mb-3">
+                            <label for="scoreRank" class="form-label">득점 랭킹</label>
+                            <input type="text" class="form-control" id="scoreRank" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="assistRank" class="form-label">어시스트 랭킹</label>
+                            <input type="text" class="form-control" id="assistRank" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="attendRank" class="form-label">참석 랭킹</label>
+                            <input type="text" class="form-control" id="attendRank" readonly>
+                        </div>
+
+
+
+
                         <div class="modal-footer d-flex justify-content-between">
                             <div>
                                 <button type="button" id="delete_player" class="btn btn-danger" data-player-id="">삭제</button>

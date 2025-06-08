@@ -69,6 +69,10 @@
                         document.getElementById('pos2').value = data.playerDto.pos;
                         document.getElementById('backNumber').value = data.playerDto.backNum;
 
+                        document.getElementById('scoreRank').value = data.score.rank + '등 : ' + data.score.count + '득점';
+                        document.getElementById('assistRank').value = data.assist.rank + '등 : ' + data.assist.count + '어시스트';
+                        document.getElementById('attendRank').value = data.attend.rank + '등 : ' + data.attend.count + '회';
+
                         $('#pos').val(data.playerDto.pos).trigger('change');
 
                         var myModal = new bootstrap.Modal(document.getElementById('playerDetailModal'));
