@@ -36,9 +36,10 @@ public class PointService {
         Page<Object[]> result = pointRepository.countGoal(pageable);
 
         List<RankingResponse> goalCount = result.stream().map(a -> {
-            Player player = (Player) a[0];
-            Long count = (Long) a[1];
-            return RankingResponse.from(PlayerDto.from(player), count);
+            Long rank = (Long) a[0];
+            Player player = (Player) a[1];
+            Long count = (Long) a[2];
+            return RankingResponse.from(rank, PlayerDto.from(player), count);
         }).toList();
 
         return new PageImpl<>(
@@ -55,9 +56,10 @@ public class PointService {
         Page<Object[]> result = pointRepository.countAssist(pageable);
 
         List<RankingResponse> assistCount = result.stream().map(a -> {
-            Player player = (Player) a[0];
-            Long count = (Long) a[1];
-            return RankingResponse.from(PlayerDto.from(player), count);
+            Long rank = (Long) a[0];
+            Player player = (Player) a[1];
+            Long count = (Long) a[2];
+            return RankingResponse.from(rank, PlayerDto.from(player), count);
         }).toList();
 
         return new PageImpl<>(

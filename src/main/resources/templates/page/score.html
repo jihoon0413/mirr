@@ -23,7 +23,7 @@
             </thead>
             <tbody th:fragment="gameTableFragment" id="gameTbody">
             <tr th:each="goal, iterStat : ${rankList}">
-                <td th:text="${rankList.pageable.pageNumber*10 +iterStat.count}"></td>
+                <td th:text="${goal.rank}"></td>
                 <td th:text="${goal.playerDto.name}"></td>
                 <td th:text="${goal.playerDto.backNum}"></td>
                 <td th:text="${goal.playerDto.pos}"></td>

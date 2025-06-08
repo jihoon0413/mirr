@@ -12,7 +12,7 @@ import java.util.List;
 public interface PointRepository extends JpaRepository<Point, Long> {
     List<Point> findAllByQuarterId(Long quarterId);
 
-    @Query(value = "SELECT p, COUNT(pt) as goalCount " +
+    @Query(value = "SELECT RANK() OVER(ORDER BY COUNT(pt) DESC), p, COUNT(pt) as goalCount " +
             "FROM Player p " +
             "LEFT JOIN Point pt ON pt.player = p AND pt.type = 'GOAL'" +
             "GROUP BY p " +
@@ -20,7 +20,7 @@ public interface PointRepository extends JpaRepository<Point, Long> {
     )
     Page<Object[]> countGoal(Pageable pageable);
 
-    @Query(value = "SELECT p, COUNT(pt) as assistCount " +
+    @Query(value = "SELECT RANK() OVER(ORDER BY COUNT(pt) DESC), p, COUNT(pt) as assistCount " +
             "FROM Player p " +
             "LEFT JOIN Point pt ON pt.player = p AND pt.type = 'ASSIST'" +
             "GROUP BY p " +

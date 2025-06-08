@@ -23,7 +23,7 @@
     </thead>
     <tbody th:fragment="gameTableFragment" id="gameTbody">
     <tr th:each="attend, iterStat : ${rankList}">
-      <td th:text="${rankList.pageable.pageNumber*10 +iterStat.count}"></td>
+      <td th:text="${attend.rank}"></td>
       <td th:text="${attend.playerDto.name}"></td>
       <td th:text="${attend.playerDto.backNum}"></td>
       <td th:text="${attend.playerDto.pos}"></td>
@@ -35,21 +35,3 @@
 </div>
 </body>
 </html>
-
-
-
-<!--<script type="text/javascript">-->
-
-<!--  document.addEventListener('DOMContentLoaded', function() {-->
-<!--      $(function () {-->
-<!--          $.ajax({-->
-<!--              type:"get",-->
-<!--              url:"attend/getAttendRanking?page=0&size=10",-->
-<!--              success:function(rankList){-->
-<!--                  console.log('받은 데이터:', rankList);-->
-<!--                  $("#gameTbody").replaceWith(rankList);-->
-<!--              }-->
-<!--          });-->
-<!--      });-->
-<!--  });-->
-<!--</script>-->

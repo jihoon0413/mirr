@@ -17,7 +17,7 @@ public interface MomRepository extends JpaRepository<Mom, Long> {
 
     Long countByPlayerId(Long id);
 
-    @Query(value = "SELECT p, COUNT(m) as momCount " +
+    @Query(value = "SELECT RANK() OVER(ORDER BY COUNT(m) DESC), p, COUNT(m) as momCount " +
             "FROM Player p " +
             "LEFT JOIN Mom m ON m.player = p " +
             "GROUP BY p " +

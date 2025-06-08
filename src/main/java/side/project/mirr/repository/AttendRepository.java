@@ -12,7 +12,7 @@ public interface AttendRepository extends JpaRepository<Attend, Long> {
     List<Attend> findAllByGameId(Long gameId);
 
 
-    @Query(value = "SELECT p, COUNT(a) as attendCount " +
+    @Query(value = "SELECT RANK() OVER(ORDER BY COUNT(a) DESC), p, COUNT(a) as attendCount " +
             "FROM Player p " +
             "LEFT JOIN Attend a ON a.player = p " +
             "GROUP BY p " +

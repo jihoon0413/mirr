@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <tr th:each="assist, iterStat : ${rankList}">
-                    <td th:text="${rankList.pageable.pageNumber*10 +iterStat.count}"></td>
+                    <td th:text="${assist.rank}"></td>
                     <td th:text="${assist.playerDto.name}"></td>
                     <td th:text="${assist.playerDto.backNum}"></td>
                     <td th:text="${assist.playerDto.pos}"></td>
