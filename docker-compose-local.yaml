@@ -7,7 +7,7 @@ services:
       context: ./database
     image: jihoon0413/mirr-database
     environment:
-      - MARIADB_DATABASE=mirr
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
       - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./database/config:/etc/mysql/conf.d
