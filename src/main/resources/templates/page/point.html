@@ -43,7 +43,7 @@
 
     </div>
     <script type="text/javascript">
-        // 골 추가
+        // 골 추가 모달
         $(function(){
             $("#btn_newGoal").click(function(){
 
@@ -66,7 +66,6 @@
                             select.appendChild(option);
                         });
 
-                        document.getElementById('gameId').value = gameId;
                         document.getElementById('quarterId').value = quarterId;
                         document.getElementById('pointType').value = 'GOAL';
                         var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));
@@ -78,7 +77,7 @@
         });
 
 
-        // 어시스트 추가
+        // 어시스트 추가 모달
         $(function(){
             $("#btn_newAssist").click(function(){
 
@@ -100,7 +99,6 @@
                             select.appendChild(option);
                         });
 
-                        document.getElementById('gameId').value = gameId;
                         document.getElementById('quarterId').value = quarterId;
                         document.getElementById('pointType').value = 'ASSIST';
                         var myModal = new bootstrap.Modal(document.getElementById('newPointModal'));
@@ -111,6 +109,39 @@
             });
         });
 
+        $(function() {
+                $('#newPointForm').on('submit', postRequest(newPointForm));
+        });
+
+        function postRequest(formId) {
+            $(formId).on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'post',
+                    url: form.attr('action'),
+                    data: formData,
+                    beforeSend: function(xhr) {
+                        var csrfToken = $('meta[name="_csrf"]').attr('content');
+                        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+                        if (csrfHeader && csrfToken) {
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        }
+                    },
+                    success: function(response) {
+                        // alert("저장 완료!"); // 필요하면 사용
+                        $('#playerDetailModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("저장 실패: " + error);
+                    }
+                });
+            });
+        }
 
         //포인트 삭제
         $(function(){

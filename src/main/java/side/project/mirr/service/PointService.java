@@ -84,10 +84,13 @@ public class PointService {
     public void saveNewPoint(PointRequest pointRequest) {
 
         Quarter quarter = quarterRepository.findById(pointRequest.quarterId()).orElseThrow();
-        Player player = playerRepository.findById(pointRequest.playerId()).orElseThrow();
 
-        Point point = PointRequest.toEntity(quarter, player, pointRequest.type(), quarter.getGame().getMatchDay());
+        for(Long playerId : pointRequest.playerId()) {
+            Player player = playerRepository.findById(playerId).orElseThrow();
 
-        pointRepository.save(point);
+            Point point = PointRequest.toEntity(quarter, player, pointRequest.type(), quarter.getGame().getMatchDay());
+
+            pointRepository.save(point);
+        }
     }
 }

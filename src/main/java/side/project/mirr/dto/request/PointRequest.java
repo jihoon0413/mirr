@@ -6,10 +6,11 @@ import side.project.mirr.domain.Quarter;
 import side.project.mirr.domain.eNum.PointType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record PointRequest(
         Long quarterId,
-        Long playerId,
+        List<Long> playerId,
         PointType type
 
 ) {

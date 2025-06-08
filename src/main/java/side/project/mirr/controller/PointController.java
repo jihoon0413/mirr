@@ -25,7 +25,6 @@ public class PointController {
 
     private final PointService pointService;
 
-    //TODO: 포인트 요청시 계산하지 않고 미리미리 테이블에 저장하기
 
     @GetMapping("/detail")
     public String getPointDetail(@RequestParam("quarterId") Long quarterId,
@@ -35,15 +34,14 @@ public class PointController {
         model.addAttribute("pointDetailList", pointDtos);
         model.addAttribute("gameId", gameId);
         model.addAttribute("quarterId", quarterId);
-        model.addAttribute("pointRequest", new PointRequest(0L, 0L, PointType.GOAL));
+        model.addAttribute("pointRequest", new PointRequest(0L, null, PointType.GOAL));
         return "page/point";
     }
 
     @PostMapping("/newPoint")
-    public String saveNewPoint(PointRequest pointRequest,
-                               @RequestParam("gameId") Long gameId) {
+    public ResponseEntity<String> saveNewPoint(PointRequest pointRequest) {
         pointService.saveNewPoint(pointRequest);
-        return "redirect:/point/detail?quarterId="+ pointRequest.quarterId() + "&gameId=" + gameId;
+        return ResponseEntity.ok("ok");
     }
 
     @PostMapping("/delete/{pointId}")

@@ -16,17 +16,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="|/point/newPoint?gameId=${gameId}|" th:object="${pointRequest}" method="post">
-                        <div class="mb-3">
-                            <input type="hidden" class="form-control" id="gameId" readonly>
-                        </div>
+                    <form id="newPointForm" action="/point/newPoint" th:object="${pointRequest}" method="post">
                         <div class="mb-3">
                             <input type="hidden" class="form-control" id="quarterId" th:field="*{quarterId}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="playerId" class="form-label">플레이어</label>
                             <br>
-                            <select class="form-control select2" id="playerId" th:field="*{playerId}" style="width: 100%;" required>
+                            <select class="form-control select2" id="playerId" multiple="multiple" th:field="*{playerId}" style="width: 100%;" required>
                                 <option value="0">테스트</option>
                             </select>
                         </div>
