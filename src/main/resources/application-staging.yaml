@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ep-bitter-recipe-a1dewc7z.ap-southeast-1.pg.koyeb.app/${STAGING_DBNAME}
+    username: ${STAGING_DATASOURCE_USERNAME}
+    password: ${STAGING_DATASOURCE_PASSWORD}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always

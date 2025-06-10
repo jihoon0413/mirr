@@ -6,6 +6,8 @@ services:
     depends_on:
       - mirr-record-database
     image: jihoon0413/mirr-server
+    env_file:
+      - .env
     environment:
       - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}

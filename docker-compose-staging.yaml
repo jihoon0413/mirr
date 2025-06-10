@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  record-web-server:
+    container_name: record-mirr
+    build: .
+    image: jihoon0413/record-mirr
+    env_file:
+      - .env
+    environment:
+      - STAGING_DATASOURCE_USERNAME=${STAGING_DATASOURCE_USERNAME}
+      - STAGING_DATASOURCE_PASSWORD=${STAGING_DATASOURCE_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+    ports:
+      - 8080:8080
+
