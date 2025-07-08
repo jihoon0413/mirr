@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ep-lively-sun-a18sv3ye.ap-southeast-1.pg.koyeb.app/${STAGING_DBNAME}
+    url: jdbc:postgresql://ep-red-sun-a1d8c5wk.ap-southeast-1.pg.koyeb.app/${STAGING_DBNAME}
     username: ${STAGING_DATASOURCE_USERNAME}
     password: ${STAGING_DATASOURCE_PASSWORD}
   jpa:
