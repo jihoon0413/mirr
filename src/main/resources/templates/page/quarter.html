@@ -92,7 +92,7 @@
 
         //쿼터 추가
          $(function() {
-            $('#newQuarterForm').on('submit', postRequest(newQuarterForm));
+            postRequest('#newQuarterForm');
         });
 
 
@@ -149,7 +149,7 @@
 
         //쿼터 수정
         $(function() {
-            $('#modifyQuarterForm').on('submit', postRequest(modifyQuarterForm));
+            postRequest('#modifyQuarterForm');
         });
 
 
@@ -213,7 +213,7 @@
 
         // MOM 수정
         $(function() {
-            $('#modifyMomFrom').on('submit', postRequest(modifyMomFrom));
+            postRequest('#modifyMomFrom');
         });
 
 
@@ -250,7 +250,7 @@
 
         // 참석자 추가
         $(function() {
-                $('#newAttendForm').on('submit', postRequest(newAttendForm));
+            postRequest('#newAttendForm');
         });
 
 
@@ -274,7 +274,8 @@
         });
 
         function postRequest(formId) {
-            $(formId).on('submit', function(e) {
+
+            $(formId).off('submit').on('submit', function(e) {
                 e.preventDefault();
 
                 var form = $(this);
