@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +32,9 @@ public class AttendController {
     }
 
     @PostMapping("/newAttend")
-    public String newAttend(MomRequest attendRequest) {
+    public ResponseEntity<HttpStatus> newAttend(MomRequest attendRequest) {
         attendService.newAttends(attendRequest);
-        return "redirect:/quarter/detail/" + attendRequest.gameId();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
     //TODO: 같은 경기에 참석자 중복 저장되지 않도록 하기
     //TODO: 참석자 체크박스로 한번에 추가하기

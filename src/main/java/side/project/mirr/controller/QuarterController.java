@@ -2,6 +2,8 @@ package side.project.mirr.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +45,9 @@ public class QuarterController {
     }
 
     @PostMapping("/newQuarter")
-    public String newQuarter(QuarterRequest quarterRequest) {
+    public ResponseEntity<HttpStatus> newQuarter(QuarterRequest quarterRequest) {
         quarterService.saveQuarter(quarterRequest);
-        return "redirect:/quarter/detail/" + quarterRequest.gameId();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/findById/{quarterId}")
@@ -55,10 +57,11 @@ public class QuarterController {
     }
 
     @PostMapping("/update")
-    public String updateQuarter(QuarterDto quarterDto) {
+    public ResponseEntity<HttpStatus> updateQuarter(QuarterDto quarterDto) {
         Long gameId = quarterService.updateQuarter(quarterDto);
-        return "redirect:/quarter/detail/" + gameId;
+        return ResponseEntity.ok(HttpStatus.OK);
     }
+
 
 
     @PostMapping("/delete/{quarterId}")

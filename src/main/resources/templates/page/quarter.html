@@ -275,7 +275,7 @@
 
         function postRequest(formId) {
 
-            $(formId).off('submit').on('submit', function(e) {
+            $(document).off('submit', formId).on('submit', formId, function(e) {
                 e.preventDefault();
 
                 var form = $(this);
