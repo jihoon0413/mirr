@@ -34,7 +34,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.postgresql:postgresql'
@@ -50,6 +49,10 @@ dependencies {
 	// ajax 사용을 위한 jquery추가
 	implementation 'org.webjars:jquery:3.7.1'
 	implementation 'org.webjars:bootstrap:5.3.2'
+}
+
+bootBuildImage() {
+	imageName = "${project.name}";
 }
 
 tasks.named('test') {

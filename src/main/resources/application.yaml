@@ -1,6 +1,5 @@
 spring:
   profiles:
-#    active: local #default
     active: ${SPRING_PROFILES_ACTIVE}
     group:
       local:
