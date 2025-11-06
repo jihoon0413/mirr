@@ -7,6 +7,7 @@ services:
       - mirr-record-database
     env_file:
       - .env
+    restart: always
     environment:
       - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
       - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
@@ -31,3 +32,22 @@ services:
       - ./database/init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+
+  prometheus:
+    image: quay.io/prometheus/prometheus:v2.52.0
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana-oss:10.4.3
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning
+
