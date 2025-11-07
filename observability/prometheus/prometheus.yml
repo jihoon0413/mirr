@@ -1,8 +1,16 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 5s
+  evaluation_interval: 5s
 
 scrape_configs:
   - job_name: mirr-server
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['mirr-web-server:8080']
+
+  - job_name: node-exporter
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+#  TODO: db exporter 추가
