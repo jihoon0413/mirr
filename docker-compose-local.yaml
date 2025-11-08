@@ -77,3 +77,18 @@ services:
       - "--mysqld.address=${DATASOURCE_ADDRESS}"
     ports:
       - 9104:9104
+
+  k6:
+    image: grafana/k6
+    container_name: k6
+    volumes:
+      - ./k6:/scripts
+    entrypoint: [ "k6", "run", "--out", "influxdb=http://influxdb:8086/k6", "/scripts/load-test.js" ]
+
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    environment:
+      - INFLUXDB_DB=k6
+    ports:
+      - "8086:8086"
