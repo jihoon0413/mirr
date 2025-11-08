@@ -29,7 +29,6 @@ services:
       - MARIADB_ROOT_PASSWORD=${DATASOURCE_PASSWORD}
     volumes:
       - ./database/config:/etc/mysql/conf.d
-      - ./database/init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
 
@@ -65,3 +64,16 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/host:ro
+
+  mysql-exporter:
+    image: prom/mysqld-exporter:latest
+    container_name: mysql-exporter
+    depends_on:
+      - mirr-record-database
+    env_file:
+      - .env
+    command:
+      - "--mysqld.username=${DATASOURCE_USERNAME}:${DATASOURCE_PASSWORD}"
+      - "--mysqld.address=${DATASOURCE_ADDRESS}"
+    ports:
+      - 9104:9104
