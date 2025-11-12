@@ -1,5 +1,6 @@
 package side.project.mirr.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,18 +24,7 @@ public class MomController {
 
     private final MomService momService;
 
-    @GetMapping
-    public String getMomRanking(Model model,
-                                @RequestParam(value = "page", defaultValue = "0") int page,
-                                @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<RankingResponse> momRanking = momService.getMomRanking(page, size);
-        model.addAttribute("rankList", momRanking);
-        model.addAttribute("maxPage", 5);
-
-        return "page/mom";
-
-    }
-
+    @Operation(summary = "M.O.M 수정")
     @PostMapping("/modify")
     public ResponseEntity<HttpStatus> modifyMom(MomRequest momRequest){
         momService.modify(momRequest);

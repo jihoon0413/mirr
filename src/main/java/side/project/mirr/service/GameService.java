@@ -22,6 +22,7 @@ public class GameService {
         return GameDto.from(gameRepository.findById(1L).orElseThrow());
     }
 
+    //TODO: 현재 달만 조회하도록 개선
     public List<GameDto> findMatchByMonth() {
         return gameRepository.findAll()
                 .stream().map(GameDto :: from)

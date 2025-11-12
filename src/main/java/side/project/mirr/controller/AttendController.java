@@ -1,5 +1,6 @@
 package side.project.mirr.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,16 +22,6 @@ public class AttendController {
 
     private final AttendService attendService;
 
-    @GetMapping
-    public String getAttendRanking(Model model,
-                                   @RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "size", defaultValue = "10") int size){
-        Page<RankingResponse> attendRanking = attendService.getAttendRanking(page, size);
-        model.addAttribute("rankList", attendRanking);
-        model.addAttribute("maxPage", 5);
-        return "page/attend";
-    }
-
     @PostMapping("/newAttend")
     public ResponseEntity<HttpStatus> newAttend(MomRequest attendRequest) {
         attendService.newAttends(attendRequest);
@@ -39,6 +30,7 @@ public class AttendController {
     //TODO: 같은 경기에 참석자 중복 저장되지 않도록 하기
     //TODO: 참석자 체크박스로 한번에 추가하기
 
+    @Operation(summary = "참석자 삭제")
     @PostMapping("/delete/{attendId}")
     @ResponseBody
     public void deleteAttend(@PathVariable("attendId") Long attendId) {

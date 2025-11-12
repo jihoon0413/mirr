@@ -1,5 +1,6 @@
 package side.project.mirr.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,44 +26,27 @@ import java.util.List;
 public class QuarterController {
 
     private final QuarterService quarterService;
-    private final MomService momService;
-    private final AttendService attendService;
 
-    @GetMapping("/detail/{gameId}")
-    public String detail(@PathVariable("gameId") Long gameId,
-                         Model model) {
-        List<QuarterDto> quarterDtos = quarterService.findQuarter(gameId);
-        List<PlayerDto> moms = momService.findMomsByGameId(gameId);
-        List<AttendDto> attends = attendService.findPlayerByGameId(gameId);
-        model.addAttribute("quarterDTO", new QuarterDto(0L,0,null,0,0));
-        model.addAttribute("quarterRequest", new QuarterRequest(0L, 0, "", 0, 0));
-        model.addAttribute("momRequest", new MomRequest(0L, null));
-        model.addAttribute("gameId", gameId);
-        model.addAttribute("gameDetailList", quarterDtos);
-        model.addAttribute("moms", moms);
-        model.addAttribute("attends", attends);
-        return "page/quarter";
-    }
-
+    @Operation(summary = "새로운 쿼터 추가")
     @PostMapping("/newQuarter")
     public ResponseEntity<HttpStatus> newQuarter(QuarterRequest quarterRequest) {
         quarterService.saveQuarter(quarterRequest);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @Operation(summary = "쿼터 정보 조회", description = "쿼터 정보를 수정할 때 사용")
     @GetMapping("/findById/{quarterId}")
     @ResponseBody
     public QuarterDto findById(@PathVariable("quarterId") Long quarterId){
         return quarterService.findQuarterById(quarterId);
     }
 
+    @Operation(summary = "쿼터 정보 업데이트")
     @PostMapping("/update")
     public ResponseEntity<HttpStatus> updateQuarter(QuarterDto quarterDto) {
         Long gameId = quarterService.updateQuarter(quarterDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-
 
     @PostMapping("/delete/{quarterId}")
     @ResponseBody

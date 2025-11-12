@@ -25,19 +25,6 @@ public class PointController {
 
     private final PointService pointService;
 
-
-    @GetMapping("/detail")
-    public String getPointDetail(@RequestParam("quarterId") Long quarterId,
-                                 @RequestParam("gameId") Long gameId,
-                                 Model model) {
-        List<PointDto> pointDtos = pointService.getPointByQuarter(quarterId);
-        model.addAttribute("pointDetailList", pointDtos);
-        model.addAttribute("gameId", gameId);
-        model.addAttribute("quarterId", quarterId);
-        model.addAttribute("pointRequest", new PointRequest(0L, null, PointType.GOAL));
-        return "page/point";
-    }
-
     @PostMapping("/newPoint")
     public ResponseEntity<String> saveNewPoint(PointRequest pointRequest) {
         pointService.saveNewPoint(pointRequest);

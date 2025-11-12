@@ -26,19 +26,6 @@ public class PlayerController {
 
     private final PlayerService playerService;
 
-    @GetMapping
-    public String getAllPlayers(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
-                                Model model) {
-        Page<PlayerDto> players = playerService.findAll(pageable);
-        List<Position> positions = playerService.getAllPos();
-        model.addAttribute("players", players);
-        model.addAttribute("maxPage", 5);
-        model.addAttribute("positions", positions);
-        model.addAttribute("playerDTO", new PlayerDto(0L, "", null, 0));
-
-        return "page/players";
-    }
-
     @GetMapping("/findAll")
     @ResponseBody
     public List<PlayerDto> findAll() {
