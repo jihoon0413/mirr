@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modifyPlayerForm" action="/players/modifyPlayer" th:object="${playerDTO}" method="post">
+                    <form id="modifyPlayerForm" action="/players" th:object="${playerDTO}" method="put">
                         <div class="mb-3">
                             <label for="playerId" class="form-label" hidden>플레이어 아이디</label>
                             <input type="text" class="form-control" id="playerId" th:field="*{id}" readonly hidden>

@@ -21,22 +21,23 @@ public class GameController {
     private final GameService gameService;
 
     @Operation(summary = "새로운 게임 추가")
-    @PostMapping("/newGame")
+    @PostMapping
     public ResponseEntity<String> saveGame(GameRequest gameDto) {
 
         gameService.saveGame(GameDto.of(gameDto.stadium(), gameDto.matchDay()));
         return ResponseEntity.ok("ok");
     }
 
-    @GetMapping("/findGame")
+    //TODO: 현재 달만 조회하도록 개선
+
+    @GetMapping("/findAll")
     @ResponseBody
     public List<GameDto> findOne(Model model) {
         return gameService.findMatchByMonth();
     }
 
-
     @Operation(summary = "게임 정보 삭제")
-    @PostMapping("delete/{gameId}")
+    @DeleteMapping("/{gameId}")
     public ResponseEntity<String> deleteGame(@PathVariable("gameId") Long gameId) {
         gameService.deleteGame(gameId);
         return ResponseEntity.ok("/");

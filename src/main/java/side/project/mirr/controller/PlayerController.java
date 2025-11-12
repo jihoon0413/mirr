@@ -26,7 +26,7 @@ public class PlayerController {
 
     private final PlayerService playerService;
 
-    @PostMapping("/newPlayer")
+    @PostMapping
     public ResponseEntity<String> newPlayer(PlayerDto playerDto) {
         playerService.savePlayer(playerDto);
         return ResponseEntity.ok("ok");
@@ -38,20 +38,20 @@ public class PlayerController {
         return playerService.findAll();
     }
 
-    @GetMapping("/playerDetail/{playerId}")
+    @GetMapping("/{playerId}")
     @ResponseBody
     public PlayerDetailResponse getPlayerDetail(@PathVariable("playerId")Long playerId) {
         return playerService.getPlayerDetail(playerId);
     }
 
-    @PostMapping("/modifyPlayer")
+    @PutMapping
     public ResponseEntity<HttpStatus> modifyPlayer(PlayerDto playerDto) {
         playerService.modifyPlayer(playerDto);
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/deletePlayer/{playerId}")
+    @DeleteMapping("/{playerId}")
     public ResponseEntity<String> deletePlayer(@PathVariable("playerId") Long playerId) {
         playerService.deletePlayer(playerId);
         return ResponseEntity.ok("ok");

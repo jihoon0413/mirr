@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modifyMomFrom" action="/mom/modify" th:object="${momRequest}" method="post">
+                    <form id="modifyMomFrom" action="/mom" th:object="${momRequest}" method="post">
                         <div class="mb-3">
                             <input class="form-control" id="momGameId" th:field="*{gameId}" readonly>
                         </div>

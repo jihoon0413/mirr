@@ -22,7 +22,8 @@ public class AttendController {
 
     private final AttendService attendService;
 
-    @PostMapping("/newAttend")
+    @Operation(summary = "참석자 추가")
+    @PostMapping
     public ResponseEntity<HttpStatus> newAttend(MomRequest attendRequest) {
         attendService.newAttends(attendRequest);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -31,7 +32,7 @@ public class AttendController {
     //TODO: 참석자 체크박스로 한번에 추가하기
 
     @Operation(summary = "참석자 삭제")
-    @PostMapping("/delete/{attendId}")
+    @DeleteMapping("/{attendId}")
     @ResponseBody
     public void deleteAttend(@PathVariable("attendId") Long attendId) {
         attendService.deleteAttend(attendId);

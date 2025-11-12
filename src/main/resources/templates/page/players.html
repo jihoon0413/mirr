@@ -92,7 +92,7 @@
 
                 $.ajax({
                     type:"get",
-                    url:'/players/playerDetail/'+playerId,
+                    url:'/players/'+playerId,
                     success: function(data) {
 
                         console.log('data : ', data);
@@ -129,7 +129,7 @@
             var formData = form.serialize();
 
             $.ajax({
-                type: 'post',
+                type: 'put',
                 url: form.attr('action'),
                 data: formData,
                 beforeSend: function(xhr) {
@@ -166,8 +166,8 @@
             console.log('playerId', playerId);
 
             $.ajax({
-                type:"post",
-                url:'/players/deletePlayer/'+ playerId,
+                type:"delete",
+                url:'/players/'+ playerId,
                 success: function(response) {
     <!--                    alert("삭제 완료!");-->
                     $('#playerDetailModal').modal('hide');

@@ -105,8 +105,8 @@
                 var gameId = document.getElementById('btn_delete').value;
                 console.log('게임 아이디 :', gameId);
                 $.ajax({
-                    type:"post",
-                    url:'/game/delete/' + gameId,
+                    type:"delete",
+                    url:'/game/' + gameId,
                     success: function(response) {
                         window.location.href = response;
                     },
@@ -126,7 +126,7 @@
 
                     $.ajax({
                         type:"get",
-                        url:'/quarter/findById/' + quarterId,
+                        url:'/quarter/' + quarterId,
                         success: function(response) {
 
                             console.log('쿼터 정보:', response);
@@ -149,7 +149,7 @@
 
         //쿼터 수정
         $(function() {
-            postRequest('#modifyQuarterForm');
+            putRequest('#modifyQuarterForm');
         });
 
 
@@ -163,8 +163,8 @@
                 var quarterId = $(this).val();
                 console.log('쿼터 수정 게임 아이디:', quarterId);
                 $.ajax({
-                    type:"post",
-                    url:'/quarter/delete/' + quarterId,
+                    type:"delete",
+                    url:'/quarter/' + quarterId,
                     success: function() {
                         location.reload();
                     }
@@ -264,8 +264,8 @@
                 var attendId = $(this).val();
                 console.log('삭제아이디 : ' + attendId);
                 $.ajax({
-                    type:"post",
-                    url:'/attend/delete/' + attendId,
+                    type:"delete",
+                    url:'/attend/' + attendId,
                     success: function() {
                         location.reload();
                     }
@@ -283,6 +283,37 @@
 
                 $.ajax({
                     type: 'post',
+                    url: form.attr('action'),
+                    data: formData,
+                    beforeSend: function(xhr) {
+                        var csrfToken = $('meta[name="_csrf"]').attr('content');
+                        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+                        if (csrfHeader && csrfToken) {
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        }
+                    },
+                    success: function(response) {
+                        // alert("저장 완료!"); // 필요하면 사용
+                        $('#playerDetailModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("저장 실패: " + error);
+                    }
+                });
+            });
+        }
+
+        function putRequest(formId) {
+
+            $(document).off('submit', formId).on('submit', formId, function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'put',
                     url: form.attr('action'),
                     data: formData,
                     beforeSend: function(xhr) {

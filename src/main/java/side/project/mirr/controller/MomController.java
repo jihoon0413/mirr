@@ -26,9 +26,11 @@ public class MomController {
     private final MomService momService;
 
     @Operation(summary = "M.O.M 수정")
-    @PostMapping("/modify")
+    @PostMapping
     public ResponseEntity<HttpStatus> modifyMom(MomRequest momRequest){
         momService.modify(momRequest);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    //TODO :  m.o.m 비워두는 기능 추가
 }

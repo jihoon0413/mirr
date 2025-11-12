@@ -152,8 +152,8 @@
                 var pointId = $(this).val();
                 console.log('쿼터 수정 게임 아이디:', pointId);
                 $.ajax({
-                    type:"post",
-                    url:'/point/delete/' + pointId,
+                    type:"delete",
+                    url:'/point/' + pointId,
                     success: function() {
                         location.reload();
                     }

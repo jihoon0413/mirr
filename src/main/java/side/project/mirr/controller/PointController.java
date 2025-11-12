@@ -25,13 +25,13 @@ public class PointController {
 
     private final PointService pointService;
 
-    @PostMapping("/newPoint")
+    @PostMapping
     public ResponseEntity<String> saveNewPoint(PointRequest pointRequest) {
         pointService.saveNewPoint(pointRequest);
         return ResponseEntity.ok("ok");
     }
 
-    @PostMapping("/delete/{pointId}")
+    @DeleteMapping("/{pointId}")
     @ResponseBody
     public void deleteById(@PathVariable("pointId") Long pointId) {
         pointService.deleteById(pointId);

@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="newPointForm" action="/point/newPoint" th:object="${pointRequest}" method="post">
+                    <form id="newPointForm" action="/point" th:object="${pointRequest}" method="post">
                         <div class="mb-3">
                             <input type="hidden" class="form-control" id="quarterId" th:field="*{quarterId}" readonly>
                         </div>

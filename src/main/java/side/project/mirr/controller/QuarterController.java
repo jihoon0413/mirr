@@ -28,27 +28,27 @@ public class QuarterController {
     private final QuarterService quarterService;
 
     @Operation(summary = "새로운 쿼터 추가")
-    @PostMapping("/newQuarter")
+    @PostMapping
     public ResponseEntity<HttpStatus> newQuarter(QuarterRequest quarterRequest) {
         quarterService.saveQuarter(quarterRequest);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @Operation(summary = "쿼터 정보 조회", description = "쿼터 정보를 수정할 때 사용")
-    @GetMapping("/findById/{quarterId}")
+    @GetMapping("/{quarterId}")
     @ResponseBody
     public QuarterDto findById(@PathVariable("quarterId") Long quarterId){
         return quarterService.findQuarterById(quarterId);
     }
 
     @Operation(summary = "쿼터 정보 업데이트")
-    @PostMapping("/update")
+    @PutMapping
     public ResponseEntity<HttpStatus> updateQuarter(QuarterDto quarterDto) {
         Long gameId = quarterService.updateQuarter(quarterDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/delete/{quarterId}")
+    @DeleteMapping("/{quarterId}")
     @ResponseBody
     public void deleteQuarter(@PathVariable("quarterId") Long quarterId) {
         quarterService.deleteQuarter(quarterId);
