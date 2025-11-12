@@ -55,6 +55,10 @@ dependencies {
 
 bootBuildImage() {
 	imageName = "${project.name}";
+	environment = [
+			"BP_JVM_VERSION"             : "17",
+			"BP_JVM_JAVA_TOOL_OPTIONS"   : "-Dfile.encoding=UTF-8"
+	]
 }
 
 tasks.named('test') {

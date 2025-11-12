@@ -78,6 +78,7 @@ insert into game (stadium, match_day) values ('동구다목적', '2025-01-13');
 insert into game (stadium, match_day) values ('창평', '2025-01-19');
 insert into game (stadium, match_day) values ('동구다목적', '2025-01-20');
 insert into game (stadium, match_day) values ('동구다목적', '2025-06-10');
+insert into game (stadium, match_day) values ('동구다목적', '2025-11-10');
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '도도', 1, 0, 2);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '창평', 2, 2, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (1, '도도', 3, 2, 0);
@@ -93,7 +94,7 @@ insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '샤크스', 4, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 5, 1, 1);
 insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (3, '창평', 6, 5, 0);
-insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (7, '창평', 1, 5, 0);
+insert into quarter (game_id, opponent, quarter_num, point, lose_point) values (8, '창평', 1, 5, 0);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 11);
 insert into point (type, date_info, quarter_id, player_id) values ('GOAL', '2025-01-05', 2, 50);
 insert into point (type, date_info, quarter_id, player_id) values ('ASSIST', '2025-01-05', 2, 36);
