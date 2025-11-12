@@ -20,7 +20,7 @@ import side.project.mirr.service.QuarterService;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/quarter")
 @RequiredArgsConstructor
 public class QuarterController {

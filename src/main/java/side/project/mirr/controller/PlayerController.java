@@ -19,12 +19,18 @@ import side.project.mirr.service.PlayerService;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/players")
 @RequiredArgsConstructor
 public class PlayerController {
 
     private final PlayerService playerService;
+
+    @PostMapping("/newPlayer")
+    public ResponseEntity<String> newPlayer(PlayerDto playerDto) {
+        playerService.savePlayer(playerDto);
+        return ResponseEntity.ok("ok");
+    }
 
     @GetMapping("/findAll")
     @ResponseBody
@@ -36,12 +42,6 @@ public class PlayerController {
     @ResponseBody
     public PlayerDetailResponse getPlayerDetail(@PathVariable("playerId")Long playerId) {
         return playerService.getPlayerDetail(playerId);
-    }
-
-    @PostMapping("/newPlayer")
-    public String newPlayer(PlayerDto playerDto) {
-        playerService.savePlayer(playerDto);
-        return "redirect:/players";
     }
 
     @PostMapping("/modifyPlayer")

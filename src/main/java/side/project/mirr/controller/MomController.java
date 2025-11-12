@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import side.project.mirr.dto.request.MomRequest;
 import side.project.mirr.dto.response.RankingResponse;
 import side.project.mirr.service.MomService;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/mom")
 @RequiredArgsConstructor
 public class MomController {

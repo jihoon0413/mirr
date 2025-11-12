@@ -15,7 +15,7 @@ import side.project.mirr.dto.response.RankingResponse;
 import side.project.mirr.service.AttendService;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/attend")
 @RequiredArgsConstructor
 public class AttendController {

@@ -14,7 +14,7 @@ import side.project.mirr.service.GameService;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/game")
 @RequiredArgsConstructor
 public class GameController {
@@ -22,10 +22,10 @@ public class GameController {
 
     @Operation(summary = "새로운 게임 추가")
     @PostMapping("/newGame")
-    public String saveGame(GameRequest gameDto) {
+    public ResponseEntity<String> saveGame(GameRequest gameDto) {
 
         gameService.saveGame(GameDto.of(gameDto.stadium(), gameDto.matchDay()));
-        return "redirect:/";
+        return ResponseEntity.ok("ok");
     }
 
     @GetMapping("/findGame")
@@ -34,13 +34,6 @@ public class GameController {
         return gameService.findMatchByMonth();
     }
 
-//    @Operation(summary = "모든 게임 조회", description = "처음 달력에 표시할 게임 정보 조회해 뷰에 표시")
-//    @GetMapping("/findMatchByMonth")
-//    public String findMatchByMonth(Model model) {
-//        List<GameDto> gameDtos = gameService.findMatchByMonth();
-//        model.addAttribute("gameList", gameDtos);
-//        return "page/score :: gameTableFragment";
-//    }
 
     @Operation(summary = "게임 정보 삭제")
     @PostMapping("delete/{gameId}")

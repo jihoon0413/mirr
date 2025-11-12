@@ -18,7 +18,7 @@ import side.project.mirr.service.PointService;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/point")
 @RequiredArgsConstructor
 public class PointController {

@@ -11,8 +11,7 @@
     <body>
         <div th:fragment="gameTableFragment" id='calendar'></div>
         <div th:replace="~{fragments/newGameModal :: newGameModal}"></div>
-        <script th:inline="javascript">
-
+        <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 $(function () {
                     var request = $.ajax({
@@ -54,6 +53,40 @@
                     });
                 });
             });
+
+            $(function() {
+               $('#newGameForm').on('submit', postRequest(newGameForm));
+            });
+
+            function postRequest(formId) {
+                $(formId).on('submit', function(e) {
+                    e.preventDefault();
+
+                    var form = $(this);
+                    var formData = form.serialize();
+
+                    $.ajax({
+                        type: 'post',
+                        url: form.attr('action'),
+                        data: formData,
+                        beforeSend: function(xhr) {
+                            var csrfToken = $('meta[name="_csrf"]').attr('content');
+                            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+                            if (csrfHeader && csrfToken) {
+                                xhr.setRequestHeader(csrfHeader, csrfToken);
+                            }
+                        },
+                        success: function(response) {
+                            // alert("저장 완료!"); // 필요하면 사용
+                            $('#playerDetailModal').modal('hide');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            alert("저장 실패: " + error);
+                        }
+                    });
+                });
+            }
 
         </script>
         <style>
