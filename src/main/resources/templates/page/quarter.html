@@ -92,7 +92,13 @@
 
         //쿼터 추가
          $(function() {
-            postRequest('#newQuarterForm');
+            postRequest('#newQuarterForm', () => ({
+                gameId : $('#gameId').val(),
+                quarterNum : $('#quarterNum').val(),
+                opponent : $('#opponent').val(),
+                point : $('#point').val(),
+                losePoint : $('#losePoint').val()
+            }));
         });
 
 
@@ -149,7 +155,13 @@
 
         //쿼터 수정
         $(function() {
-            putRequest('#modifyQuarterForm');
+            putRequest('#modifyQuarterForm', ()=>({
+                id : $('#quarterId').val(),
+                quarterNum : $('#quarterNum').val(),
+                opponent : $('#opponent').val(),
+                point : $('#point').val(),
+                losePoint : $('#losePoint').val()
+            }));
         });
 
 
@@ -213,7 +225,10 @@
 
         // MOM 수정
         $(function() {
-            postRequest('#modifyMomFrom');
+            postRequest('#modifyMomFrom', () => ({
+                gameId : $('#momGameId').val(),
+                playerId : $('#momPlayerId').val()
+            }));
         });
 
 
@@ -250,7 +265,10 @@
 
         // 참석자 추가
         $(function() {
-            postRequest('#newAttendForm');
+            postRequest('#newAttendForm', () => ({
+                gameId : $('#attendGameId').val(),
+                playerId : $('#attendPlayerId').val()
+            }));
         });
 
 
@@ -273,18 +291,19 @@
             });
         });
 
-        function postRequest(formId) {
+        function postRequest(formId, bodyBuilder) {
 
             $(document).off('submit', formId).on('submit', formId, function(e) {
                 e.preventDefault();
 
                 var form = $(this);
-                var formData = form.serialize();
+                var formData = JSON.stringify(bodyBuilder());
 
                 $.ajax({
                     type: 'post',
                     url: form.attr('action'),
                     data: formData,
+                    contentType: 'application/json; charset=UTF-8',
                     beforeSend: function(xhr) {
                         var csrfToken = $('meta[name="_csrf"]').attr('content');
                         var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
@@ -304,18 +323,19 @@
             });
         }
 
-        function putRequest(formId) {
+        function putRequest(formId, bodyBuilder) {
 
             $(document).off('submit', formId).on('submit', formId, function(e) {
                 e.preventDefault();
 
                 var form = $(this);
-                var formData = form.serialize();
+                var formData = JSON.stringify(bodyBuilder());
 
                 $.ajax({
                     type: 'put',
                     url: form.attr('action'),
                     data: formData,
+                    contentType: 'application/json; charset=UTF-8',
                     beforeSend: function(xhr) {
                         var csrfToken = $('meta[name="_csrf"]').attr('content');
                         var csrfHeader = $('meta[name="_csrf_header"]').attr('content');

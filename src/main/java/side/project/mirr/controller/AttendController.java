@@ -24,7 +24,7 @@ public class AttendController {
 
     @Operation(summary = "참석자 추가")
     @PostMapping
-    public ResponseEntity<HttpStatus> newAttend(MomRequest attendRequest) {
+    public ResponseEntity<HttpStatus> newAttend(@RequestBody MomRequest attendRequest) {
         attendService.newAttends(attendRequest);
         return ResponseEntity.ok(HttpStatus.OK);
     }

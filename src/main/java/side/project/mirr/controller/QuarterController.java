@@ -29,7 +29,7 @@ public class QuarterController {
 
     @Operation(summary = "새로운 쿼터 추가")
     @PostMapping
-    public ResponseEntity<HttpStatus> newQuarter(QuarterRequest quarterRequest) {
+    public ResponseEntity<HttpStatus> newQuarter(@RequestBody QuarterRequest quarterRequest) {
         quarterService.saveQuarter(quarterRequest);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class QuarterController {
 
     @Operation(summary = "쿼터 정보 업데이트")
     @PutMapping
-    public ResponseEntity<HttpStatus> updateQuarter(QuarterDto quarterDto) {
+    public ResponseEntity<HttpStatus> updateQuarter(@RequestBody QuarterDto quarterDto) {
         Long gameId = quarterService.updateQuarter(quarterDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }

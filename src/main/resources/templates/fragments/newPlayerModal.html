@@ -19,11 +19,11 @@
                     <form id="newPlayerForm" action="/players" th:object="${playerDTO}" method="post">
                         <div class="mb-3">
                             <label class="form-label">이름</label>
-                            <input type="text" class="form-control" th:field="*{name}">
+                            <input type="text" id="name" class="form-control" th:field="*{name}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">포지션</label>
-                            <select class="form-control select2" th:field="*{pos}" style="width: 100%;" required>
+                            <select class="form-control select2" id="pos" th:field="*{pos}" style="width: 100%;" required>
                                 <option value="">선택하세요</option>
                                 <option type="text" id="position" th:each="pos : ${positions}"
                                         th:value="${pos}"
@@ -33,7 +33,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">등번호</label>
-                            <input type="text" class="form-control" th:field="*{backNum}" required>
+                            <input type="text" id="backNum" class="form-control" th:field="*{backNum}" required>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">저장</button>

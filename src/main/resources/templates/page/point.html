@@ -110,20 +110,25 @@
         });
 
         $(function() {
-                $('#newPointForm').on('submit', postRequest(newPointForm));
+            postRequest('#newPointForm', () => ({
+                quarterId : $('#quarterId').val(),
+                playerId : $('#playerId').val(),
+                type : $('#pointType').val()
+            }));
         });
 
-        function postRequest(formId) {
+        function postRequest(formId, bodyBuilder) {
             $(formId).on('submit', function(e) {
                 e.preventDefault();
 
                 var form = $(this);
-                var formData = form.serialize();
+                var formData = JSON.stringify(bodyBuilder());
 
                 $.ajax({
                     type: 'post',
                     url: form.attr('action'),
                     data: formData,
+                    contentType: 'application/json; charset=UTF-8',
                     beforeSend: function(xhr) {
                         var csrfToken = $('meta[name="_csrf"]').attr('content');
                         var csrfHeader = $('meta[name="_csrf_header"]').attr('content');

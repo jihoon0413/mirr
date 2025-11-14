@@ -50,20 +50,26 @@
     });
 
     $(function() {
-       $('#newPlayerForm').on('submit', postRequest(newPlayerForm));
+        postRequest('#newPlayerForm', () => ({
+            id : null,
+            name : $('#name').val(),
+            pos : $('#pos').val(),
+            backNum : $('#backNum').val()
+        }));
     });
 
-    function postRequest(formId) {
+    function postRequest(formId, bodyBuilder) {
         $(formId).on('submit', function(e) {
             e.preventDefault();
 
             var form = $(this);
-            var formData = form.serialize();
+            var formData = JSON.stringify(bodyBuilder());
 
             $.ajax({
                 type: 'post',
                 url: form.attr('action'),
                 data: formData,
+                contentType: 'application/json; charset=UTF-8',
                 beforeSend: function(xhr) {
                     var csrfToken = $('meta[name="_csrf"]').attr('content');
                     var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
@@ -126,12 +132,18 @@
             e.preventDefault();
 
             var form = $(this);
-            var formData = form.serialize();
+            var formData = JSON.stringify({
+                 id : $('#playerId').val(),
+                 name : $('#playerName').val(),
+                 pos : $('#pos2').val(),
+                 backNum : $('#backNumber').val()
+            });
 
             $.ajax({
                 type: 'put',
                 url: form.attr('action'),
                 data: formData,
+                contentType: 'application/json; charset=UTF-8',
                 beforeSend: function(xhr) {
                     var csrfToken = $('meta[name="_csrf"]').attr('content');
                     var csrfHeader = $('meta[name="_csrf_header"]').attr('content');

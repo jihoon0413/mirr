@@ -26,7 +26,7 @@ public class PointController {
     private final PointService pointService;
 
     @PostMapping
-    public ResponseEntity<String> saveNewPoint(PointRequest pointRequest) {
+    public ResponseEntity<String> saveNewPoint(@RequestBody PointRequest pointRequest) {
         pointService.saveNewPoint(pointRequest);
         return ResponseEntity.ok("ok");
     }

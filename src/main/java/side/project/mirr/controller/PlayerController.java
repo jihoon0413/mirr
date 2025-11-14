@@ -27,7 +27,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @PostMapping
-    public ResponseEntity<String> newPlayer(PlayerDto playerDto) {
+    public ResponseEntity<String> newPlayer(@RequestBody PlayerDto playerDto) {
         playerService.savePlayer(playerDto);
         return ResponseEntity.ok("ok");
     }
@@ -45,7 +45,7 @@ public class PlayerController {
     }
 
     @PutMapping
-    public ResponseEntity<HttpStatus> modifyPlayer(PlayerDto playerDto) {
+    public ResponseEntity<HttpStatus> modifyPlayer(@RequestBody PlayerDto playerDto) {
         playerService.modifyPlayer(playerDto);
 
         return ResponseEntity.ok(HttpStatus.OK);

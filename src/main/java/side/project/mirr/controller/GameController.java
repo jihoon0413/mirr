@@ -22,7 +22,7 @@ public class GameController {
 
     @Operation(summary = "새로운 게임 추가")
     @PostMapping
-    public ResponseEntity<String> saveGame(GameRequest gameDto) {
+    public ResponseEntity<String> saveGame(@RequestBody GameRequest gameDto) {
 
         gameService.saveGame(GameDto.of(gameDto.stadium(), gameDto.matchDay()));
         return ResponseEntity.ok("ok");

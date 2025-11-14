@@ -54,21 +54,24 @@
                 });
             });
 
-            $(function() {
-               $('#newGameForm').on('submit', postRequest(newGameForm));
+            $(function () {
+                postRequest('#newGameForm', () => ({
+                    stadium: $('#eventTitle').val(),
+                    matchDay: $('#eventDate').val()
+                }));
             });
 
-            function postRequest(formId) {
+            function postRequest(formId, bodyBuilder) {
                 $(formId).on('submit', function(e) {
                     e.preventDefault();
 
                     var form = $(this);
-                    var formData = form.serialize();
 
                     $.ajax({
                         type: 'post',
                         url: form.attr('action'),
-                        data: formData,
+                        data: JSON.stringify(bodyBuilder()),
+                        contentType: 'application/json; charset=UTF-8',
                         beforeSend: function(xhr) {
                             var csrfToken = $('meta[name="_csrf"]').attr('content');
                             var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
