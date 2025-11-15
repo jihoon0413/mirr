@@ -16,12 +16,10 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final QuarterRepository quarterRepository;
 
     public GameDto findGame() {
         return GameDto.from(gameRepository.findById(1L).orElseThrow());
     }
-
 
     public List<GameDto> findMatchByMonth() {
         return gameRepository.findAll()
@@ -29,12 +27,10 @@ public class GameService {
                 .toList();
     }
 
-    public void saveGame(GameDto gameDto) {
+    public Long saveGame(GameDto gameDto) {
         Game game = Game.of(gameDto.stadium(), gameDto.matchDay());
-        gameRepository.save(game);
+        return gameRepository.save(game).getId();
     }
-
-
 
     public void deleteGame(Long gameId) {
         gameRepository.deleteById(gameId);

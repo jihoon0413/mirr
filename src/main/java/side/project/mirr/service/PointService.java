@@ -47,7 +47,6 @@ public class PointService {
                 pageable,
                 result.getTotalElements()
         );
-
     }
 
     public Page<RankingResponse> getAssistRanking(int page, int size) {
@@ -67,7 +66,6 @@ public class PointService {
                 pageable,
                 result.getTotalElements()
         );
-
     }
 
     public List<PointDto> getPointByQuarter(Long quarterId) {

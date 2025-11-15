@@ -23,9 +23,9 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    public void savePlayer(PlayerDto playerDto) {
+    public Long savePlayer(PlayerDto playerDto) {
         Player player = Player.of(playerDto.name(), playerDto.pos(), playerDto.backNum());
-        playerRepository.save(player);
+        return playerRepository.save(player).getId();
     }
 
     public List<PlayerDto> findAll() {
@@ -50,14 +50,14 @@ public class PlayerService {
         return PlayerDetailResponse.of(PlayerDto.from(player), scoreInfo, assistInfo, attendInfo);
     }
 
-    public void modifyPlayer(PlayerDto playerDto) {
+    public Long modifyPlayer(PlayerDto playerDto) {
         Player player = playerRepository.findById(playerDto.id()).orElseThrow();
 
         player.setName(playerDto.name());
         player.setPos(playerDto.pos());
         player.setBackNum(playerDto.backNum());
 
-        playerRepository.save(player);
+        return playerRepository.save(player).getId();
     }
 
     public void deletePlayer(Long playerId) {

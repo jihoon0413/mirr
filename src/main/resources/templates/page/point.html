@@ -59,7 +59,7 @@
 
                         select.innerHTML = '';
 
-                        data.forEach(function(player) {
+                        data.result.forEach(function(player) {
                             var option = document.createElement('option');
                             option.value = player.id;  // 플레이어 ID
                             option.textContent = player.name;  // 플레이어 이름
@@ -92,7 +92,7 @@
 
                         select.innerHTML = '';
 
-                        data.forEach(function(player) {
+                        data.result.forEach(function(player) {
                             var option = document.createElement('option');
                             option.value = player.id;  // 플레이어 ID
                             option.textContent = player.name;  // 플레이어 이름

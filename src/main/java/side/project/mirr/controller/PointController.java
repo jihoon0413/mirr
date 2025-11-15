@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import side.project.mirr.domain.eNum.PointType;
 import side.project.mirr.dto.PointDto;
 import side.project.mirr.dto.request.PointRequest;
+import side.project.mirr.dto.response.IdResponse;
 import side.project.mirr.dto.response.RankingResponse;
+import side.project.mirr.dto.response.Response;
 import side.project.mirr.service.PointService;
 
 import java.util.List;
@@ -26,15 +28,16 @@ public class PointController {
     private final PointService pointService;
 
     @PostMapping
-    public ResponseEntity<String> saveNewPoint(@RequestBody PointRequest pointRequest) {
+    public Response<Void> saveNewPoint(@RequestBody PointRequest pointRequest) {
         pointService.saveNewPoint(pointRequest);
-        return ResponseEntity.ok("ok");
+        return Response.success();
     }
 
     @DeleteMapping("/{pointId}")
     @ResponseBody
-    public void deleteById(@PathVariable("pointId") Long pointId) {
+    public Response<Void> deleteById(@PathVariable("pointId") Long pointId) {
         pointService.deleteById(pointId);
+        return Response.success();
     }
 
 }

@@ -13,6 +13,8 @@ import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.QuarterDto;
 import side.project.mirr.dto.request.MomRequest;
 import side.project.mirr.dto.request.QuarterRequest;
+import side.project.mirr.dto.response.IdResponse;
+import side.project.mirr.dto.response.Response;
 import side.project.mirr.service.AttendService;
 import side.project.mirr.service.MomService;
 import side.project.mirr.service.QuarterService;
@@ -29,29 +31,30 @@ public class QuarterController {
 
     @Operation(summary = "새로운 쿼터 추가")
     @PostMapping
-    public ResponseEntity<HttpStatus> newQuarter(@RequestBody QuarterRequest quarterRequest) {
-        quarterService.saveQuarter(quarterRequest);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public Response<IdResponse> newQuarter(@RequestBody QuarterRequest quarterRequest) {
+        IdResponse result = IdResponse.of(quarterService.saveQuarter(quarterRequest));
+        return Response.success(result);
     }
 
     @Operation(summary = "쿼터 정보 조회", description = "쿼터 정보를 수정할 때 사용")
     @GetMapping("/{quarterId}")
     @ResponseBody
-    public QuarterDto findById(@PathVariable("quarterId") Long quarterId){
-        return quarterService.findQuarterById(quarterId);
+    public Response<QuarterDto> findById(@PathVariable("quarterId") Long quarterId){
+        return Response.success(quarterService.findQuarterById(quarterId));
     }
 
     @Operation(summary = "쿼터 정보 업데이트")
     @PutMapping
-    public ResponseEntity<HttpStatus> updateQuarter(@RequestBody QuarterDto quarterDto) {
-        Long gameId = quarterService.updateQuarter(quarterDto);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public Response<IdResponse> updateQuarter(@RequestBody QuarterDto quarterDto) {
+        IdResponse result = IdResponse.of(quarterService.updateQuarter(quarterDto));
+        return Response.success(result);
     }
 
     @DeleteMapping("/{quarterId}")
     @ResponseBody
-    public void deleteQuarter(@PathVariable("quarterId") Long quarterId) {
+    public Response<Void> deleteQuarter(@PathVariable("quarterId") Long quarterId) {
         quarterService.deleteQuarter(quarterId);
+        return Response.success();
     }
 
 }

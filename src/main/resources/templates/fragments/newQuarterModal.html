@@ -25,23 +25,23 @@
                             <label for="index" class="form-label">쿼터 순서</label><br>
                             <select id="index" class="form-control select2" th:field="*{quarterNum}" style="width: 100%;" required>
                                 <option value="">선택하세요</option>
-                                <option type="text" id="quarterNum" th:each="num : ${#numbers.sequence(1, 10)}"
+                                <option th:each="num : ${#numbers.sequence(1, 10)}"
                                         th:value="${num}"
                                         th:text="${num}">
                                 </option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="opponent" class="form-label">상대팀</label>
-                            <input type="text" class="form-control" id="opponent" th:field="*{opponent}" placeholder="상대팀명" required>
+                            <label for="newOpponent" class="form-label">상대팀</label>
+                            <input type="text" id="newOpponent"  class="form-control" th:field="*{opponent}" placeholder="상대팀명" required>
                         </div>
                         <div class="mb-3">
-                        <label for="point" class="form-label">득점</label>
-                        <input type="text" class="form-control" id="point" th:field="*{point}" required>
+                        <label for="newPoint" class="form-label">득점</label>
+                        <input type="text" id="newPoint" th:field="*{point}" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="losePoint" class="form-label">실점</label>
-                            <input type="text" class="form-control" id="losePoint" th:field="*{losePoint}" required>
+                            <label for="newLosePoint" class="form-label">실점</label>
+                            <input type="text" id="newLosePoint" th:field="*{losePoint}" class="form-control" required>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">저장</button>

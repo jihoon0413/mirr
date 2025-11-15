@@ -94,10 +94,10 @@
          $(function() {
             postRequest('#newQuarterForm', () => ({
                 gameId : $('#gameId').val(),
-                quarterNum : $('#quarterNum').val(),
-                opponent : $('#opponent').val(),
-                point : $('#point').val(),
-                losePoint : $('#losePoint').val()
+                quarterNum : $('#index').val(),
+                opponent : $('#newOpponent').val(),
+                point : $('#newPoint').val(),
+                losePoint : $('#newLosePoint').val()
             }));
         });
 
@@ -114,7 +114,7 @@
                     type:"delete",
                     url:'/game/' + gameId,
                     success: function(response) {
-                        window.location.href = response;
+                        window.location.href = '/';
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
@@ -135,12 +135,14 @@
                         url:'/quarter/' + quarterId,
                         success: function(response) {
 
+                            const data = response.result;
+
                             console.log('쿼터 정보:', response);
                             document.getElementById('quarterId').value = quarterId;
-                            document.getElementById('quarterNum').value = response.quarterNum;
-                            document.getElementById('opponent').value = response.opponent;
-                            document.getElementById('point').value = response.point;
-                            document.getElementById('losePoint').value = response.losePoint;
+                            document.getElementById('quarterNum').value = data.quarterNum;
+                            document.getElementById('opponent').value = data.opponent;
+                            document.getElementById('point').value = data.point;
+                            document.getElementById('losePoint').value = data.losePoint;
 
                             var myModal = new bootstrap.Modal(document.getElementById('modifyQuarterModal'));
                             myModal.show();
@@ -203,7 +205,7 @@
 
                         select.innerHTML = '';
 
-                        data.forEach(function(player) {
+                        data.result.forEach(function(player) {
                             var option = document.createElement('option');
                             option.value = player.id;  // 플레이어 ID
                             option.textContent = player.name;  // 플레이어 이름
@@ -249,7 +251,7 @@
 
                         select.innerHTML = '';
 
-                        data.forEach(function(player) {
+                        data.result.forEach(function(player) {
                             var option = document.createElement('option');
                             option.value = player.id;  // 플레이어 ID
                             option.textContent = player.name;  // 플레이어 이름

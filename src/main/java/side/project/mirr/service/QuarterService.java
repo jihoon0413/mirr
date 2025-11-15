@@ -49,11 +49,11 @@ public class QuarterService {
         return quarter.getGame().getId();
     }
 
-    public void saveQuarter(QuarterRequest quarterRequest) {
+    public Long saveQuarter(QuarterRequest quarterRequest) {
 
         Game game = gameRepository.findById(quarterRequest.gameId()).orElseThrow();
 
         Quarter quarter = QuarterRequest.toEntity(game, quarterRequest);
-        quarterRepository.save(quarter);
+        return quarterRepository.save(quarter).getId();
     }
 }

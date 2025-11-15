@@ -2,18 +2,11 @@ package side.project.mirr.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import side.project.mirr.domain.eNum.Position;
 import side.project.mirr.dto.PlayerDto;
 import side.project.mirr.dto.response.PlayerDetailResponse;
+import side.project.mirr.dto.response.Response;
+import side.project.mirr.dto.response.IdResponse;
 import side.project.mirr.service.PlayerService;
 
 import java.util.List;
@@ -27,33 +20,32 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @PostMapping
-    public ResponseEntity<String> newPlayer(@RequestBody PlayerDto playerDto) {
-        playerService.savePlayer(playerDto);
-        return ResponseEntity.ok("ok");
+    public Response<IdResponse> newPlayer(@RequestBody PlayerDto playerDto) {
+        IdResponse result = IdResponse.of(playerService.savePlayer(playerDto));
+        return Response.success(result);
     }
 
     @GetMapping("/findAll")
     @ResponseBody
-    public List<PlayerDto> findAll() {
-        return playerService.findAll();
+    public Response<List<PlayerDto>> findAll() {
+        return Response.success(playerService.findAll());
     }
 
     @GetMapping("/{playerId}")
     @ResponseBody
-    public PlayerDetailResponse getPlayerDetail(@PathVariable("playerId")Long playerId) {
-        return playerService.getPlayerDetail(playerId);
+    public Response<PlayerDetailResponse> getPlayerDetail(@PathVariable("playerId")Long playerId) {
+        return Response.success(playerService.getPlayerDetail(playerId));
     }
 
     @PutMapping
-    public ResponseEntity<HttpStatus> modifyPlayer(@RequestBody PlayerDto playerDto) {
-        playerService.modifyPlayer(playerDto);
-
-        return ResponseEntity.ok(HttpStatus.OK);
+    public Response<IdResponse> modifyPlayer(@RequestBody PlayerDto playerDto) {
+        IdResponse result = IdResponse.of(playerService.modifyPlayer(playerDto));
+        return Response.success(result);
     }
 
     @DeleteMapping("/{playerId}")
-    public ResponseEntity<String> deletePlayer(@PathVariable("playerId") Long playerId) {
+    public Response<Void> deletePlayer(@PathVariable("playerId") Long playerId) {
         playerService.deletePlayer(playerId);
-        return ResponseEntity.ok("ok");
+        return Response.success();
     }
 }

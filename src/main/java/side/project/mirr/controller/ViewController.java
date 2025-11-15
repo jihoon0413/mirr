@@ -41,6 +41,7 @@ public class ViewController {
     private final PlayerService playerService;
     private final QuarterService quarterService;
 
+    @Operation(summary = "홈 화면")
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("gameDTO", new GameRequest("",""));
@@ -64,6 +65,7 @@ public class ViewController {
         return "page/quarter";
     }
 
+    @Operation(summary = "포인트 상세 기록")
     @GetMapping("/point/detail")
     public String getPointDetail(@RequestParam("quarterId") Long quarterId,
                                  @RequestParam("gameId") Long gameId,
@@ -127,6 +129,7 @@ public class ViewController {
         return "page/mom";
     }
 
+    @Operation(summary = "전체 플레이어 관리 뷰")
     @GetMapping("/players")
     public String getAllPlayers(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable,
                                 Model model) {

@@ -99,7 +99,9 @@
                 $.ajax({
                     type:"get",
                     url:'/players/'+playerId,
-                    success: function(data) {
+                    success: function(response) {
+
+                        const data = response.result
 
                         console.log('data : ', data);
                         console.log('name : ', data.playerDto.name);
