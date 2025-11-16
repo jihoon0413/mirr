@@ -82,9 +82,12 @@ services:
     container_name: k6
     depends_on:
       - mirr-web-server
+    environment:
+      - K6_STATSD_TAGS_AS_FIELDS=true
+      - K6_OUT=influxdb=http://influxdb:8086/k6
     volumes:
       - ./k6:/scripts
-    entrypoint: [ "k6", "run", "--out", "influxdb=http://influxdb:8086/k6", "/scripts/scenario-record-flow.js"]
+    entrypoint: [ "/bin/sh", "/scripts/run-all.sh"]
 
   influxdb:
     image: influxdb:1.8
