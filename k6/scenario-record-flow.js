@@ -32,6 +32,7 @@ export default function() {
     sleep(1);
 
     const gameId = gameRes.json('result.id');
+    var quarterId = 0;
 
     check(gameRes, {'게임 생성됨': r => r.status === 200});
 
@@ -52,7 +53,7 @@ export default function() {
         check(quarterRes, {'쿼터 생성됨': r => r.status === 200});
 
 
-        const quarterId = quarterRes.json('result.id')
+        quarterId = quarterRes.json('result.id')
 
         for(let j = 0 ; j < 4 ; j++) {
             const listSize = Math.floor(Math.random() * 4) + 1;
@@ -106,6 +107,6 @@ export default function() {
 
     check(attendRes, {'참석자 기록': r => r.status === 200});
 
-    http.get('http://mirr-web-server:8080/quarter/detail/${gameId}')
-    http.get('http://mirr-web-server:8080/point/detail?quarterId=${quarterId}&gameId=${gameId}')
+    http.get('http://mirr-web-server:8080/quarter/detail/'+gameId)
+    http.get('http://mirr-web-server:8080/point/detail?quarterId=' + quarterId + '&gameId=' + gameId)
 }
